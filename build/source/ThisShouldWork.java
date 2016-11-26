@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-public class Main extends PApplet {
+public class ThisShouldWork extends PApplet {
 
 
 
@@ -41,8 +41,10 @@ float t;
 float Colours;
 static final int NUM_LINES = 20;
 static final int NUM_LINES2 = 20;
-
-
+// commit test
+//another
+public void aasd(){}
+public void asd(){}
 public void setup() {
 
 
@@ -60,24 +62,19 @@ public void setup() {
 
 public void draw(){
 
-
-  println(Colours);
-  //colourChange();
   incrementLR();
   incrementUD();
-  spherePulse();
+  //spherePulse();
 
-  //background(#000F0D);
-  whitneyDraw();
+  background(0xff000F0D);
+    translate(width/2, height/2);
+  whitneyDraw1();
+  //whitneyDraw2();
 
-  lights();
-  //fill(255);
-  noStroke();
-  //translate(width/2, height/2, 0);
-  //sphere(100);
-
-  stroke(myTriColour);
-  strokeWeight(5);
+  //lights();
+  //noStroke()
+  //stroke(myTriColour);
+  //strokeWeight(5);
   //tint(255, 50);
   //image(myMovie, -width/2,-height/2 ,width,height);
 
@@ -86,11 +83,11 @@ public void draw(){
   ////fill(10,200,10);
   //noStroke();
 
-  stroke(myTriColour);
-  strokeWeight(5);
-  noFill();
+  //stroke(myTriColour);
+  //strokeWeight(5);
+  //noFill();
 
-  triangleShape();
+  //triangleShape();
 
 
 }
@@ -255,51 +252,72 @@ public float w1y2(float t) {
   //return cos(t/20)*200 + cos(t/12)*20;
 return cos(t/20) * 200 + cos(t/23)*20;
 }
-public float w1x1(float t){
-  //return sin(t/10)*100 + sin(t/6)*30;
-  return sin(t/10) * 100 + sin(t/15)*100;
+public float w2x1(float t){
+
+  return sin(t/10) * 100 + sin(t/20)*100;
 
 }
 
-public float w1y1(float t) {
+public float w2y1(float t) {
 
-  //return cos(t/10)*100;
+
   return cos(t/10) * 100;
 
 }
-public float w1x2(float t){
-   //return sin(t/10)*200 + sin(t)*2;
+public float w2x2(float t){
+
    return sin(t/10)*200 + sin(t)*4;
 
-  
+
 }
 
-public float w1y2(float t) {
+public float w2y2(float t) {
 
-  //return cos(t/20)*200 + cos(t/12)*20;
-return cos(t/20) * 200 + cos(t/23)*20;
+
+return cos(t/20) * 200 + cos(t/30)*20;
 }
-public void whitneyDraw(){
-background(0xff000F0D);
-  stroke(LR,UD,160);
-  strokeWeight(4);
-  translate(width/2, height/2);
+private void whitneyDraw1(){
+
+  //stroke(LR,UD,160);
+  background(0xff000F0D);
+  //translate(width/2, height/2);
 
   for (int c = 0; c < NUM_LINES; c++){ //draws lines
 
-		line(x1(-t+c*2), y1(-t+c*2) , x2(-t+c*2),  y2(-t+c*2)) ;
+    strokeWeight(2);
+    stroke(LR,UD,160);
+		line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
+    stroke(168,UD,LR);
+    line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
 
 }
 
-t += 1 + Pulse*0.1f;
+t++;  //Pulse*0.1;
 
 
 
 }
+private void whitneyDraw2(){
 
+  stroke(168,UD,LR);
+  //background(#000F0D);
+
+
+  for (int c = 0; c < 10; c++){ //draws lines
+
+    strokeWeight(2);
+		line(w2x1(-t+c*2), w2y1(-t+c*2) , w2x2(-t+c*2),  w2y2(-t+c*2)) ;
+
+}
+
+t++; // 1 + Pulse*0.1;
+
+
+
+}
   public void settings() {  size(1300,800, P2D);  smooth(8); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "Main" };
+    String[] appletArgs = new String[] { "ThisShouldWork" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

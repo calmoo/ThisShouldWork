@@ -1,16 +1,20 @@
-void whitneyDraw(){
-background(#000F0D);
-  stroke(LR,UD,160);
-  strokeWeight(4);
-  translate(width/2, height/2);
+private void whitneyDraw1(){
+
+  //stroke(LR,UD,160);
+  background(#000F0D);
+  //translate(width/2, height/2);
 
   for (int c = 0; c < NUM_LINES; c++){ //draws lines
 
-		line(x1(-t+c*2), y1(-t+c*2) , x2(-t+c*2),  y2(-t+c*2)) ;
+    strokeWeight(2);
+    stroke(LR,UD,160);
+		line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
+    stroke(168,UD,LR);
+    line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
 
 }
 
-t += 1 + Pulse*0.1;
+t++;  //Pulse*0.1;
 
 
 

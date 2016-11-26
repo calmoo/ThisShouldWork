@@ -42,24 +42,19 @@ void setup() {
 
 void draw(){
 
-
-  println(Colours);
-  //colourChange();
   incrementLR();
   incrementUD();
-  spherePulse();
+  //spherePulse();
 
-  //background(#000F0D);
-  whitneyDraw();
+  background(#000F0D);
+    translate(width/2, height/2);
+  whitneyDraw1();
+  //whitneyDraw2();
 
-  lights();
-  //fill(255);
-  noStroke();
-  //translate(width/2, height/2, 0);
-  //sphere(100);
-
-  stroke(myTriColour);
-  strokeWeight(5);
+  //lights();
+  //noStroke()
+  //stroke(myTriColour);
+  //strokeWeight(5);
   //tint(255, 50);
   //image(myMovie, -width/2,-height/2 ,width,height);
 
@@ -68,11 +63,11 @@ void draw(){
   ////fill(10,200,10);
   //noStroke();
 
-  stroke(myTriColour);
-  strokeWeight(5);
-  noFill();
+  //stroke(myTriColour);
+  //strokeWeight(5);
+  //noFill();
 
-  triangleShape();
+  //triangleShape();
 
 
 }
