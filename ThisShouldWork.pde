@@ -41,13 +41,14 @@ void setup() {
 }
 
 void draw(){
-
+  keyPressed();
   incrementLR();
   incrementUD();
   //spherePulse();
+  println(key);
 
   background(#000F0D);
-    translate(width/2, height/2);
+  translate(width/2, height/2);
   whitneyDraw1();
   //whitneyDraw2();
 

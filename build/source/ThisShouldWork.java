@@ -61,13 +61,14 @@ public void setup() {
 }
 
 public void draw(){
-
+  keyPressed();
   incrementLR();
   incrementUD();
   //spherePulse();
+  println(key);
 
   background(0xff000F0D);
-    translate(width/2, height/2);
+  translate(width/2, height/2);
   whitneyDraw1();
   //whitneyDraw2();
 
@@ -163,6 +164,7 @@ public void incrementUD(){
    return;
  }
 }
+
 public void oscEvent(OscMessage inp) {
   if(inp.checkAddrPattern("/myKick")==true){ //Kick Data
   float Kick = inp.get(0).floatValue();
@@ -229,28 +231,28 @@ public void spherePulse(){
     endShape();
   }
 public float w1x1(float t){
-  //return sin(t/10)*100 + sin(t/6)*30;
-  return sin(t/10) * 100 + sin(t/15)*100;
+  return sin(t/10)*100 + sin(t/6)*30;
+  //return sin(t/10) * 100 + sin(t/15)*100;
 
 }
 
 public float w1y1(float t) {
 
-  //return cos(t/10)*100;
-  return cos(t/10) * 100;
+  return cos(t/10)*100;
+  //return cos(t/10) * 100;
 
 }
 public float w1x2(float t){
-   //return sin(t/10)*200 + sin(t)*2;
-   return sin(t/10)*200 + sin(t)*4;
+   return sin(t/10)*200 + sin(t)*2;
+   //return sin(t/10)*200 + sin(t)*4;
 
-  
+
 }
 
 public float w1y2(float t) {
 
-  //return cos(t/20)*200 + cos(t/12)*20;
-return cos(t/20) * 200 + cos(t/23)*20;
+  return cos(t/20)*200 + cos(t/12)*20;
+//return cos(t/20) * 200 + cos(t/23)*20;
 }
 public float w2x1(float t){
 
@@ -285,10 +287,14 @@ private void whitneyDraw1(){
   for (int c = 0; c < NUM_LINES; c++){ //draws lines
 
     strokeWeight(2);
+    if (key == 'a'){
     stroke(LR,UD,160);
 		line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
+  }
+    else if (key == 'b'){
     stroke(168,UD,LR);
     line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
+  }
 
 }
 
