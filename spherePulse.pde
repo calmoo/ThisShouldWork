@@ -1,13 +1,13 @@
 void spherePulse(){
   if (myKick > 0.01){ //&& //millis() - time >= wait){
-    while (Pulse < 20){
-      Pulse = Pulse + 0.1;
+    for (int i = 0; i < 60; i++){
+    Pulse = i;
     }
       //time = millis();
     }
     else if (myKick < 0.01){
-      while (Pulse > 1){
-        Pulse = Pulse - 0.1;
+      for (int i = 60; i > 0; i--){
+      Pulse = i;
       }
     }
     return;

@@ -64,8 +64,7 @@ public void draw(){
   keyPressed();
   incrementLR();
   incrementUD();
-  //spherePulse();
-  println(key);
+  spherePulse();
 
   background(0xff000F0D);
   translate(width/2, height/2);
@@ -142,8 +141,8 @@ public void incrementLR(){
 
   while (LR < 110){
     LR = LR + 0.1f;
-    LR = LR + PApplet.parseInt(myVert);
-    
+  //  LR = LR + int(myVert);
+
     if (LR >110){
       LR = 1;
     }
@@ -155,7 +154,7 @@ public void incrementLR(){
 public void incrementUD(){
   while (UD < 360){
     UD = UD + 1;
-    UD = UD + myVert;
+  //  UD = UD + myVert;
     //UD = UD + (myKick + 20);
     if (UD  > 124){
       UD = 1;
@@ -164,46 +163,40 @@ public void incrementUD(){
    return;
  }
 }
+//Reads all incoming OSC data from Ableton and parses into global variables.
 
 public void oscEvent(OscMessage inp) {
-  if(inp.checkAddrPattern("/myKick")==true){ //Kick Data
+  if (inp.checkAddrPattern("/myKick")==true){ //Kick Data
   float Kick = inp.get(0).floatValue();
   myKick = Kick;
   //println(Kick);
   return;
 }
 
-else if(inp.checkAddrPattern("/Delay")==true){ // HiHat Data
+else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data
   float Delay = inp.get(0).floatValue();
   myVert =  map(Delay,0, 0.152f,1,40);
   myDelay = map(Delay,0, 0.152f,0,255);
   return;
 }
 
-else if(inp.checkAddrPattern("/Clap")==true ){ // Clap Data
-  float Clap = inp.get(0).floatValue(); 
-  if (Clap>0.1f){
-    myBG = 2;
-    myTriColour = 255;
-  }
-  else if (Clap < 0.1f){
-    myBG = 0;
-    myTriColour = 255;
-    return;
+else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
+  float Clap = inp.get(0).floatValue();
+  return;
+
   }
 
 }
-}
 public void spherePulse(){
   if (myKick > 0.01f){ //&& //millis() - time >= wait){
-    while (Pulse < 20){
-      Pulse = Pulse + 0.1f;
+    for (int i = 0; i < 60; i++){
+    Pulse = i;
     }
       //time = millis();
     }
     else if (myKick < 0.01f){
-      while (Pulse > 1){
-        Pulse = Pulse - 0.1f;
+      for (int i = 60; i > 0; i--){
+      Pulse = i;
       }
     }
     return;
@@ -278,7 +271,31 @@ public float w2y2(float t) {
 
 return cos(t/20) * 200 + cos(t/30)*20;
 }
-private void whitneyDraw1(){
+public float w3x1(float t){
+
+  return cos(1 * t) - pow((cos(80 * t)), 3);
+
+}
+
+public float w3y1(float t) {
+
+
+  return sin(1*t) - pow((sin(80 * t)), 3);
+
+}
+public float w3x2(float t){
+
+   return  cos(1 * t)*200 - pow((cos(80 * t)), 3)*4;
+
+
+}
+
+public float w3y2(float t) {
+
+
+return sin(1*t)*200 - pow((sin(80 * t)), 3)*20;
+}
+private void whitneyDraw1(){ //draws a variety of whitney functions
 
   //stroke(LR,UD,160);
   background(0xff000F0D);
@@ -296,9 +313,25 @@ private void whitneyDraw1(){
     line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
   }
 
+  else if (key == 'p'){
+    strokeWeight(5);
+    stroke(168,UD,LR);
+    //point(w2x1(t+c*2), w2y1(t+c*2));
+    //point((w2x1(t+c*2)) -10, (w2y1(t+c*2))-10);
+    line(w3x1(-t+c*2), w3y1(-t+c*2) , w3x2(-t+c*2),  w3y2(-t+c*2)) ;
+  }
+
+  else  {
+    //stroke(168,UD,LR);
+    //line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2));
+    stroke(LR,UD,160);
+		//line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
+    line(w3x1(-t+c*2), w3y1(-t+c*2) , w3x2(-t+c*2),  w3y2(-t+c*2)) ;
+  }
+
 }
 
-t++;  //Pulse*0.1;
+t = t + 0.5f + Pulse*0.01f;
 
 
 

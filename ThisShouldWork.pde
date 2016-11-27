@@ -1,32 +1,29 @@
 import oscP5.*;
 import netP5.*;
 import processing.video.*;
+
 Movie myMovie;
 OscP5 osc;
 NetAddress remote;
 
 float test;
 float myKick;
-float myDelay=0;
-int   myBG= 255;
+float myDelay;
 float myVert=0;
-int   myTriColour = 0;
+
 float UD = 1;
 float LR = 1;
 float Pulse = 2;
-float Pulse2 = 1;
-int time;
-int wait = 40;
 float t;
 float Colours;
+float Clap;
 static final int NUM_LINES = 20;
 static final int NUM_LINES2 = 20;
 // commit test
 //another
-void aasd(){}
-void asd(){}
-void setup() {
 
+
+void setup() {
 
   //myMovie = new Movie(this, "35mm_G3_DIRTY_v1.mp4");
   //myMovie.loop();
@@ -41,34 +38,20 @@ void setup() {
 }
 
 void draw(){
+
   keyPressed();
   incrementLR();
   incrementUD();
-  //spherePulse();
-  println(key);
+  spherePulse();
 
   background(#000F0D);
   translate(width/2, height/2);
   whitneyDraw1();
   //whitneyDraw2();
 
-  //lights();
-  //noStroke()
-  //stroke(myTriColour);
-  //strokeWeight(5);
   //tint(255, 50);
   //image(myMovie, -width/2,-height/2 ,width,height);
 
-  //rotateX(radians(UD));
-  //rotateZ(radians(LR));
-  ////fill(10,200,10);
-  //noStroke();
-
-  //stroke(myTriColour);
-  //strokeWeight(5);
-  //noFill();
-
-  //triangleShape();
 
 
 }
