@@ -19,8 +19,10 @@ float Colours;
 float Clap;
 static final int NUM_LINES = 20;
 static final int NUM_LINES2 = 20;
-// commit test
-//another
+int a = 1;
+int b = 100;
+int c = 1;
+int d = 50;
 
 
 void setup() {

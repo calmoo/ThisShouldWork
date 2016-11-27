@@ -39,8 +39,10 @@ float Colours;
 float Clap;
 static final int NUM_LINES = 20;
 static final int NUM_LINES2 = 20;
-// commit test
-//another
+int a = 1;
+int b = 100;
+int c = 1;
+int d = 50;
 
 
 public void setup() {
@@ -79,48 +81,6 @@ public void draw(){
 public void movieEvent(Movie m) {
   m.read();
 }
-/*void colourChange(){
-
-	/*for (float i = 0; i < 119; i = i + 1){
-		Colours = i;
-		return;
-		}
-		
-
-		for (float i = 119; i >0; i--){
-			Colours =  i;
-			return;
-
-			
-
-		}
-	}
-
-	while (true) {
-
-    for(int i = 0; i < 100; i++) {
-
-      Colours = i;
-      return;
-
-    }
-
-    for(int i = 100; i > 0; i--) {
-
-        Colours = i;
-        return;
-
-    }
-
-}*/
-
-
-
-
-
-
-
-
 public void incrementLR(){
 
   while (LR < 150){
@@ -255,11 +215,13 @@ public float w2y2(float t) {
 
 return cos(t/20) * 200 + cos(t/30)*20;
 }
+
+
 public float w3x1(float t){
 
   //return cos(1 * t) - pow((cos(80 * t)), 3);
   //return cos(1 * t)- pow((cos(80 * t)), 3) * 20;
-  return (cos(1 * t)- pow((cos(100 * t)), 3)) * 100;
+  return cos(a * t) * 10 - pow((cos(b * t)), 3) *100;
 }
 
 public float w3y1(float t) {
@@ -267,13 +229,13 @@ public float w3y1(float t) {
 
   //return sin(1*t) - pow((sin(80 * t)), 3);
   //return sin(1*t)  - pow((sin(80 * t)), 3) * 100;
-  return (sin(1*t)   - pow((sin(50 * t)), 3)) * 100;
+  return sin(c*t) * 10  - pow((sin(d * t)), 3) * 100;
 
 }
 public float w3x2(float t){
 
    //return  cos(1 * t)*200 - pow((cos(80 * t)), 3);
-   return  (cos(1 * t) - pow((cos(100 * t)), 3))  ;
+   return  cos(a * t) * 20 - pow((cos(b * t)), 3) * 400 ;
 
 
 }
@@ -282,15 +244,16 @@ public float w3y2(float t) {
 
 
 //return sin(1*t)*200 - pow((sin(80 * t)), 3);
-return (sin(1*t) - pow((sin(50 * t)), 3)) ;
+return sin(c*t) * 20  - pow((sin(d * t)) , 3) * 400 ;
 }
 private void whitneyDraw1(){ //draws a variety of whitney functions
-
+  float spc = 0.001f;
+  float tc = 0.0005f;
   //stroke(LR,UD,160);
   background(0xff000F0D);
   //translate(width/2, height/2);
 
-  for (int c = 0; c < NUM_LINES; c++){ //draws lines
+  for (float c = 0; c < 20; c = c + 1){ //draws lines
 
     strokeWeight(2);
     if (key == 'a'){ // Whitney1
@@ -311,10 +274,10 @@ private void whitneyDraw1(){ //draws a variety of whitney functions
   }
 
   else if (key == 'y'){ //Whitney 3
-    strokeWeight(3);
+    strokeWeight(2);
     stroke(120,UD,LR);
-    //line(w3x1(-t+c), w3y1(-t+c) , w3x2(-t+c),  w3y2(-t+c)) ;
-    point(w3x1(t+(c*0.001f)), w3y1(t+(c*0.001f))) ;
+    line(w3x1((-t*tc)+(c *spc)), w3y1((-t*tc)+(c *spc)), w3x2((-t*tc)+(c *spc)),  w3y2((-t*tc)+(c *spc))) ;
+    //point(w3x1((t+c)*50), w3y1((t+c)* 50)) ;
   }
 
   else  {
@@ -328,7 +291,7 @@ private void whitneyDraw1(){ //draws a variety of whitney functions
 
 }
 
-t = t + 0.0001f; //+ Pulse*0.01;
+t = t + 1; //+ Pulse*0.01;
 
 
 
