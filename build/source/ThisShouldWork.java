@@ -21,37 +21,34 @@ public class ThisShouldWork extends PApplet {
 
 
 
+
 Movie myMovie;
 OscP5 osc;
 NetAddress remote;
 
 float test;
 float myKick;
-float myDelay=0;
-int   myBG= 255;
+float myDelay;
 float myVert=0;
-int   myTriColour = 0;
+
 float UD = 1;
 float LR = 1;
 float Pulse = 2;
-float Pulse2 = 1;
-int time;
-int wait = 40;
 float t;
 float Colours;
+float Clap;
 static final int NUM_LINES = 20;
 static final int NUM_LINES2 = 20;
 // commit test
 //another
-public void aasd(){}
-public void asd(){}
-public void setup() {
 
+
+public void setup() {
 
   //myMovie = new Movie(this, "35mm_G3_DIRTY_v1.mp4");
   //myMovie.loop();
 
-  time = millis();//store the current time
+  //time = millis();//store the current time
   
   
   frameRate(60);
@@ -61,6 +58,7 @@ public void setup() {
 }
 
 public void draw(){
+
   keyPressed();
   incrementLR();
   incrementUD();
@@ -71,23 +69,9 @@ public void draw(){
   whitneyDraw1();
   //whitneyDraw2();
 
-  //lights();
-  //noStroke()
-  //stroke(myTriColour);
-  //strokeWeight(5);
   //tint(255, 50);
   //image(myMovie, -width/2,-height/2 ,width,height);
 
-  //rotateX(radians(UD));
-  //rotateZ(radians(LR));
-  ////fill(10,200,10);
-  //noStroke();
-
-  //stroke(myTriColour);
-  //strokeWeight(5);
-  //noFill();
-
-  //triangleShape();
 
 
 }
@@ -139,11 +123,11 @@ public void movieEvent(Movie m) {
 
 public void incrementLR(){
 
-  while (LR < 110){
+  while (LR < 150){
     LR = LR + 0.1f;
-  //  LR = LR + int(myVert);
+  //   LR = LR + int(myVert);
 
-    if (LR >110){
+    if (LR >150){
       LR = 1;
     }
     //println(LR);
@@ -273,19 +257,23 @@ return cos(t/20) * 200 + cos(t/30)*20;
 }
 public float w3x1(float t){
 
-  return cos(1 * t) - pow((cos(80 * t)), 3);
-
+  //return cos(1 * t) - pow((cos(80 * t)), 3);
+  //return cos(1 * t)- pow((cos(80 * t)), 3) * 20;
+  return (cos(1 * t)- pow((cos(100 * t)), 3)) * 100;
 }
 
 public float w3y1(float t) {
 
 
-  return sin(1*t) - pow((sin(80 * t)), 3);
+  //return sin(1*t) - pow((sin(80 * t)), 3);
+  //return sin(1*t)  - pow((sin(80 * t)), 3) * 100;
+  return (sin(1*t)   - pow((sin(50 * t)), 3)) * 100;
 
 }
 public float w3x2(float t){
 
-   return  cos(1 * t)*200 - pow((cos(80 * t)), 3)*4;
+   //return  cos(1 * t)*200 - pow((cos(80 * t)), 3);
+   return  (cos(1 * t) - pow((cos(100 * t)), 3))  ;
 
 
 }
@@ -293,7 +281,8 @@ public float w3x2(float t){
 public float w3y2(float t) {
 
 
-return sin(1*t)*200 - pow((sin(80 * t)), 3)*20;
+//return sin(1*t)*200 - pow((sin(80 * t)), 3);
+return (sin(1*t) - pow((sin(50 * t)), 3)) ;
 }
 private void whitneyDraw1(){ //draws a variety of whitney functions
 
@@ -304,34 +293,42 @@ private void whitneyDraw1(){ //draws a variety of whitney functions
   for (int c = 0; c < NUM_LINES; c++){ //draws lines
 
     strokeWeight(2);
-    if (key == 'a'){
+    if (key == 'a'){ // Whitney1
     stroke(LR,UD,160);
 		line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
   }
-    else if (key == 'b'){
+    else if (key == 'b'){ //Whitney 2
     stroke(168,UD,LR);
     line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
   }
 
-  else if (key == 'p'){
+  else if (key == 'p'){ //Whitney 2 points
     strokeWeight(5);
     stroke(168,UD,LR);
-    //point(w2x1(t+c*2), w2y1(t+c*2));
-    //point((w2x1(t+c*2)) -10, (w2y1(t+c*2))-10);
-    line(w3x1(-t+c*2), w3y1(-t+c*2) , w3x2(-t+c*2),  w3y2(-t+c*2)) ;
+    point(w2x1(t+c*2), w2y1(t+c*2));
+    point((w2x1(t+c*2)) -10, (w2y1(t+c*2))-10);
+
+  }
+
+  else if (key == 'y'){ //Whitney 3
+    strokeWeight(3);
+    stroke(120,UD,LR);
+    //line(w3x1(-t+c), w3y1(-t+c) , w3x2(-t+c),  w3y2(-t+c)) ;
+    point(w3x1(t+(c*0.001f)), w3y1(t+(c*0.001f))) ;
   }
 
   else  {
-    //stroke(168,UD,LR);
-    //line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2));
+    stroke(168,UD,LR);
+    line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2));
     stroke(LR,UD,160);
-		//line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
-    line(w3x1(-t+c*2), w3y1(-t+c*2) , w3x2(-t+c*2),  w3y2(-t+c*2)) ;
+		line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
+
+
   }
 
 }
 
-t = t + 0.5f + Pulse*0.01f;
+t = t + 0.0001f; //+ Pulse*0.01;
 
 
 

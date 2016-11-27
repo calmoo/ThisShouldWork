@@ -28,7 +28,7 @@ void setup() {
   //myMovie = new Movie(this, "35mm_G3_DIRTY_v1.mp4");
   //myMovie.loop();
 
-  time = millis();//store the current time
+  //time = millis();//store the current time
   size(1300,800, P2D);
   smooth(8);
   frameRate(60);
