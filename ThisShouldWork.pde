@@ -14,7 +14,8 @@ float myVert=0;
 float UD = 1;
 float LR = 1;
 float Pulse = 2;
-float t;
+float t = 0;
+float l = 1;
 float Colours;
 float Clap;
 static final int NUM_LINES = 20;
@@ -23,6 +24,7 @@ int a = 1;
 int b = 100;
 int c = 1;
 int d = 50;
+float s = 2 * 3.1416 / (3*60);
 
 
 void setup() {
@@ -31,7 +33,7 @@ void setup() {
   //myMovie.loop();
 
   //time = millis();//store the current time
-  size(1300,800, P2D);
+  size(1300,800, P3D);
   smooth(8);
   frameRate(60);
   osc = new OscP5(this,8000);

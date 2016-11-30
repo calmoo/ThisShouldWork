@@ -34,7 +34,8 @@ float myVert=0;
 float UD = 1;
 float LR = 1;
 float Pulse = 2;
-float t;
+float t = 0;
+float l = 1;
 float Colours;
 float Clap;
 static final int NUM_LINES = 20;
@@ -43,6 +44,7 @@ int a = 1;
 int b = 100;
 int c = 1;
 int d = 50;
+float s = 2 * 3.1416f / (3*60);
 
 
 public void setup() {
@@ -169,27 +171,23 @@ public void spherePulse(){
   }
 public float w1x1(float t){
   return sin(t/10)*100 + sin(t/6)*30;
-  //return sin(t/10) * 100 + sin(t/15)*100;
 
 }
 
 public float w1y1(float t) {
 
   return cos(t/10)*100;
-  //return cos(t/10) * 100;
 
 }
 public float w1x2(float t){
    return sin(t/10)*200 + sin(t)*2;
-   //return sin(t/10)*200 + sin(t)*4;
-
 
 }
 
 public float w1y2(float t) {
 
   return cos(t/20)*200 + cos(t/12)*20;
-//return cos(t/20) * 200 + cos(t/23)*20;
+
 }
 public float w2x1(float t){
 
@@ -246,14 +244,20 @@ public float w3y2(float t) {
 //return sin(1*t)*200 - pow((sin(80 * t)), 3);
 return sin(c*t) * 20  - pow((sin(d * t)) , 3) * 400 ;
 }
-private void whitneyDraw1(){ //draws a variety of whitney functions
+public void whitneyDraw1(){ //draws a variety of whitney functions
   float spc = 0.001f;
   float tc = 0.0005f;
+
+  float r =200; //radius of rotation
+  float a;
+
+   //speed of rotation
+  int w = 80;
   //stroke(LR,UD,160);
   background(0xff000F0D);
   //translate(width/2, height/2);
 
-  for (float c = 0; c < 20; c = c + 1){ //draws lines
+  for (float c = 1; c < 20; c = c + 1){ //draws lines
 
     strokeWeight(2);
     if (key == 'a'){ // Whitney1
@@ -280,6 +284,15 @@ private void whitneyDraw1(){ //draws a variety of whitney functions
     //point(w3x1((t+c)*50), w3y1((t+c)* 50)) ;
   }
 
+  else if (key == 'u'){
+    noFill();
+    strokeWeight(2);
+    stroke(149,UD,LR);
+    //troke(184,124,82);
+    ellipse(200*cos(c*s*l),200*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
+
+  }
+
   else  {
     stroke(168,UD,LR);
     line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2));
@@ -290,9 +303,9 @@ private void whitneyDraw1(){ //draws a variety of whitney functions
   }
 
 }
-
-t = t + 1; //+ Pulse*0.01;
-
+//+ Pulse*0.01;
+l = l + s;
+t = t + 1;
 
 
 }
@@ -314,7 +327,7 @@ t++; // 1 + Pulse*0.1;
 
 
 }
-  public void settings() {  size(1300,800, P2D);  smooth(8); }
+  public void settings() {  size(1300,800, P3D);  smooth(8); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "ThisShouldWork" };
     if (passedArgs != null) {
