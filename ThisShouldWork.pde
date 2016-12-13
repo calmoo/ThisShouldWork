@@ -52,13 +52,15 @@ void draw(){
   incrementUD();
   spherePulse();
 
-  background(#000F0D);
+  //background(#000F0D);
 
   if(key != 'y'){
+    background(#000F0D);
     translate(width/2, height/2);
  whitneyDraw1();
  }
  else if (key == 'y'){
+   background(255);
    //translate(width*2,height*2);
    particleSystem();
  }

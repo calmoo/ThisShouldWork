@@ -8,10 +8,10 @@ class Particle {
   Particle(PVector l) {
     location = l.get();
     acceleration = new PVector(0,0);
-     float theta = map(noise(xoff,yoff),0,1,0,TWO_PI);
+     //float theta = map(noise(xoff,yoff),0,1,0,TWO_PI);
 
-    //velocity = new PVector(random(-0.5,0.5),random(-0.5,0.5));
-    velocity = new PVector(cos(theta),sin(theta));
+    velocity = new PVector(random(-0.5,0.5),random(-0.5,0.5));
+    //velocity = new PVector(cos(theta),sin(theta));
     lifespan = 255.0;
   }
 
@@ -33,8 +33,8 @@ class Particle {
   }
 
   void display() {
-    strokeWeight(2);
-    stroke(255);
+    strokeWeight(5);
+    stroke(0);
     //fill(255);
 
     point(location.x,location.y);

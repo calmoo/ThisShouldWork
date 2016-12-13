@@ -1,6 +1,7 @@
 void particleSystem(){
 
-particles.add(new Particle(new PVector(random(width), random(height))));
+//particles.add(new Particle(new PVector(random(width), random(height))));
+particles.add(new Particle(new PVector(width/2, height/2)));
   //particles.add(new Particle(new PVector(cos(theta), sin(theta))));
   for (int i = 0; i < particles.size(); i++) {
     xoff += 0;

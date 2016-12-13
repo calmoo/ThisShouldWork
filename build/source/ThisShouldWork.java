@@ -72,13 +72,15 @@ public void draw(){
   incrementUD();
   spherePulse();
 
-  background(0xff000F0D);
+  //background(#000F0D);
 
   if(key != 'y'){
+    background(0xff000F0D);
     translate(width/2, height/2);
  whitneyDraw1();
  }
  else if (key == 'y'){
+   background(255);
    //translate(width*2,height*2);
    particleSystem();
  }
@@ -105,10 +107,10 @@ class Particle {
   Particle(PVector l) {
     location = l.get();
     acceleration = new PVector(0,0);
-     float theta = map(noise(xoff,yoff),0,1,0,TWO_PI);
+     //float theta = map(noise(xoff,yoff),0,1,0,TWO_PI);
 
-    //velocity = new PVector(random(-0.5,0.5),random(-0.5,0.5));
-    velocity = new PVector(cos(theta),sin(theta));
+    velocity = new PVector(random(-0.5f,0.5f),random(-0.5f,0.5f));
+    //velocity = new PVector(cos(theta),sin(theta));
     lifespan = 255.0f;
   }
 
@@ -130,8 +132,8 @@ class Particle {
   }
 
   public void display() {
-    strokeWeight(2);
-    stroke(255);
+    strokeWeight(5);
+    stroke(0);
     //fill(255);
 
     point(location.x,location.y);
@@ -198,7 +200,8 @@ else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
 }
 public void particleSystem(){
 
-particles.add(new Particle(new PVector(random(width), random(height))));
+//particles.add(new Particle(new PVector(random(width), random(height))));
+particles.add(new Particle(new PVector(width/2, height/2)));
   //particles.add(new Particle(new PVector(cos(theta), sin(theta))));
   for (int i = 0; i < particles.size(); i++) {
     xoff += 0;
