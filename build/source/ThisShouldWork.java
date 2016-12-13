@@ -22,6 +22,7 @@ public class ThisShouldWork extends PApplet {
 
 
 
+ArrayList<Particle> particles;
 Movie myMovie;
 OscP5 osc;
 NetAddress remote;
@@ -45,6 +46,8 @@ int b = 100;
 int c = 1;
 int d = 50;
 float s = 2 * 3.1416f / (3*60);
+float xoff = 0;
+float yoff = 0;
 
 
 public void setup() {
@@ -53,6 +56,7 @@ public void setup() {
   //myMovie.loop();
 
   //time = millis();//store the current time
+   particles = new ArrayList<Particle>();
   
   
   frameRate(60);
@@ -69,8 +73,16 @@ public void draw(){
   spherePulse();
 
   background(0xff000F0D);
-  translate(width/2, height/2);
-  whitneyDraw1();
+
+  if(key != 'y'){
+    translate(width/2, height/2);
+ whitneyDraw1();
+ }
+ else if (key == 'y'){
+   //translate(width*2,height*2);
+   particleSystem();
+ }
+//particleSystem();
   //whitneyDraw2();
 
   //tint(255, 50);
@@ -82,6 +94,57 @@ public void draw(){
 
 public void movieEvent(Movie m) {
   m.read();
+}
+class Particle {
+
+  PVector location;
+  PVector velocity;
+  PVector acceleration;
+  float lifespan;
+
+  Particle(PVector l) {
+    location = l.get();
+    acceleration = new PVector(0,0);
+     float theta = map(noise(xoff,yoff),0,1,0,TWO_PI);
+
+    //velocity = new PVector(random(-0.5,0.5),random(-0.5,0.5));
+    velocity = new PVector(cos(theta),sin(theta));
+    lifespan = 255.0f;
+  }
+
+  public void run(){
+    update();
+    display();
+  }
+
+   public void applyForce(PVector force) {
+  // Newton\u2019s second law, but with force accumulation.
+  // We now add each force to acceleration, one at a time.
+    acceleration.add(force);
+ }
+  public void update() {
+    velocity.add(acceleration);
+    location.add(velocity);
+    acceleration.mult(0);
+    lifespan -= 0.0f;
+  }
+
+  public void display() {
+    strokeWeight(2);
+    stroke(255);
+    //fill(255);
+
+    point(location.x,location.y);
+
+  }
+
+  public boolean isDead(){
+    if (location.x > width || location.x < 0 || location.y > height || location.y < 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }
 public void incrementLR(){
 
@@ -132,6 +195,25 @@ else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
 
   }
 
+}
+public void particleSystem(){
+
+particles.add(new Particle(new PVector(random(width), random(height))));
+  //particles.add(new Particle(new PVector(cos(theta), sin(theta))));
+  for (int i = 0; i < particles.size(); i++) {
+    xoff += 0;
+    yoff += 0;
+    Particle p = particles.get(i);
+    p.run();
+    if (p.isDead()) {
+      particles.remove(i);
+      println("Dead");
+    }
+    if (mousePressed) {
+      PVector wind = new PVector(random(-0.5f,0.5f),random(-0.5f,0.5f));
+      p.applyForce(wind);
+    }
+  }
 }
 public void spherePulse(){
   if (myKick > 0.01f){ //&& //millis() - time >= wait){
@@ -260,16 +342,16 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
   for (float c = 1; c < 20; c = c + 1){ //draws lines
 
     strokeWeight(2);
-    if (key == 'a'){ // Whitney1
+    if (key == 'q'){ // Whitney1
     stroke(LR,UD,160);
 		line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
   }
-    else if (key == 'b'){ //Whitney 2
+    else if (key == 'w'){ //Whitney 2
     stroke(168,UD,LR);
     line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
   }
 
-  else if (key == 'p'){ //Whitney 2 points
+  else if (key == 'e'){ //Whitney 2 points
     strokeWeight(5);
     stroke(168,UD,LR);
     point(w2x1(t+c*2), w2y1(t+c*2));
@@ -277,21 +359,24 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
 
   }
 
-  else if (key == 'y'){ //Whitney 3
+  else if (key == 'r'){ //Whitney 3
     strokeWeight(2);
     stroke(120,UD,LR);
     line(w3x1((-t*tc)+(c *spc)), w3y1((-t*tc)+(c *spc)), w3x2((-t*tc)+(c *spc)),  w3y2((-t*tc)+(c *spc))) ;
     //point(w3x1((t+c)*50), w3y1((t+c)* 50)) ;
   }
 
-  else if (key == 'u'){
+  else if (key == 't'){ // Whitney harmonix
     noFill();
     strokeWeight(2);
     stroke(149,UD,LR);
     //troke(184,124,82);
     ellipse(200*cos(c*s*l),200*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
-
   }
+
+
+
+
 
   else  {
     stroke(168,UD,LR);
@@ -327,7 +412,7 @@ t++; // 1 + Pulse*0.1;
 
 
 }
-  public void settings() {  size(1300,800, P3D);  smooth(8); }
+  public void settings() {  size(1400,900, P3D);  smooth(8); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "ThisShouldWork" };
     if (passedArgs != null) {

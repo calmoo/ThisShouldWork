@@ -2,6 +2,7 @@ import oscP5.*;
 import netP5.*;
 import processing.video.*;
 
+ArrayList<Particle> particles;
 Movie myMovie;
 OscP5 osc;
 NetAddress remote;
@@ -25,6 +26,8 @@ int b = 100;
 int c = 1;
 int d = 50;
 float s = 2 * 3.1416 / (3*60);
+float xoff = 0;
+float yoff = 0;
 
 
 void setup() {
@@ -33,7 +36,8 @@ void setup() {
   //myMovie.loop();
 
   //time = millis();//store the current time
-  size(1300,800, P3D);
+   particles = new ArrayList<Particle>();
+  size(1400,900, P3D);
   smooth(8);
   frameRate(60);
   osc = new OscP5(this,8000);
@@ -49,8 +53,16 @@ void draw(){
   spherePulse();
 
   background(#000F0D);
-  translate(width/2, height/2);
-  whitneyDraw1();
+
+  if(key != 'y'){
+    translate(width/2, height/2);
+ whitneyDraw1();
+ }
+ else if (key == 'y'){
+   //translate(width*2,height*2);
+   particleSystem();
+ }
+//particleSystem();
   //whitneyDraw2();
 
   //tint(255, 50);
