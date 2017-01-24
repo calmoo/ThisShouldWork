@@ -16,14 +16,15 @@ class Particle {
   }
 
   void run(){
+    pushMatrix();
     update();
     display();
+    popMatrix();
   }
 
    void applyForce(PVector force) {
-  // Newton’s second law, but with force accumulation.
-  // We now add each force to acceleration, one at a time.
-    acceleration.add(force);
+    velocity.div(2);
+    acceleration.add(velocity);
  }
   void update() {
     velocity.add(acceleration);
@@ -33,11 +34,12 @@ class Particle {
   }
 
   void display() {
+    pushMatrix();
     strokeWeight(5);
-    stroke(0);
-    //fill(255);
-
+    stroke(particleColour);
     point(location.x,location.y);
+    popMatrix();
+
 
   }
 

@@ -12,9 +12,12 @@ float myKick;
 float myDelay;
 float myVert=0;
 
+
+int particleColour = 0;
+int particleBG = 0;
 float UD = 1;
 float LR = 1;
-float Pulse = 2;
+float Pulse = 0;
 float t = 0;
 float l = 1;
 float Colours;
@@ -29,16 +32,11 @@ float s = 2 * 3.1416 / (3*60);
 float xoff = 0;
 float yoff = 0;
 
-
 void setup() {
 
-  //myMovie = new Movie(this, "35mm_G3_DIRTY_v1.mp4");
-  //myMovie.loop();
-
-  //time = millis();//store the current time
-   particles = new ArrayList<Particle>();
+  particles = new ArrayList<Particle>();
   size(1400,900, P3D);
-  smooth(8);
+  smooth(4);
   frameRate(60);
   osc = new OscP5(this,8000);
   osc.properties().setRemoteAddress("127.0.0.1" , 8000 );
@@ -46,34 +44,27 @@ void setup() {
 }
 
 void draw(){
-
+  rectRot++;
   keyPressed();
   incrementLR();
   incrementUD();
-  spherePulse();
 
-  //background(#000F0D);
-
-  if(key != 'y'){
+//  if(key == '1'){
+    //background(#000F0D);
+    //translate(width/2, height/2);
+  if (key != '2'){
+    whitneyDraw1();
+  }
+    else if (key == '2'){
+      drawCircle(0,0,2);
+    }
+  //}
+/*  else if (key == '2'){
     background(#000F0D);
-    translate(width/2, height/2);
- whitneyDraw1();
- }
- else if (key == 'y'){
-   background(255);
-   //translate(width*2,height*2);
-   particleSystem();
- }
-//particleSystem();
-  //whitneyDraw2();
-
-  //tint(255, 50);
-  //image(myMovie, -width/2,-height/2 ,width,height);
-
-
-
-}
-
-void movieEvent(Movie m) {
-  m.read();
+    particleSystem();
+    //println(Pulse);
+  }
+  else if (key == '3'){
+    drawCircle(0,0,2);
+  }*/
 }

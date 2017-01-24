@@ -3,7 +3,7 @@
 void oscEvent(OscMessage inp) {
   if (inp.checkAddrPattern("/myKick")==true){ //Kick Data
   float Kick = inp.get(0).floatValue();
-  myKick = Kick;
+  Pulse = Kick;
   //println(Kick);
   return;
 }

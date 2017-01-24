@@ -32,9 +32,12 @@ float myKick;
 float myDelay;
 float myVert=0;
 
+
+int particleColour = 0;
+int particleBG = 0;
 float UD = 1;
 float LR = 1;
-float Pulse = 2;
+float Pulse = 0;
 float t = 0;
 float l = 1;
 float Colours;
@@ -49,14 +52,9 @@ float s = 2 * 3.1416f / (3*60);
 float xoff = 0;
 float yoff = 0;
 
-
 public void setup() {
 
-  //myMovie = new Movie(this, "35mm_G3_DIRTY_v1.mp4");
-  //myMovie.loop();
-
-  //time = millis();//store the current time
-   particles = new ArrayList<Particle>();
+  particles = new ArrayList<Particle>();
   
   
   frameRate(60);
@@ -66,36 +64,29 @@ public void setup() {
 }
 
 public void draw(){
-
+  rectRot++;
   keyPressed();
   incrementLR();
   incrementUD();
-  spherePulse();
 
-  //background(#000F0D);
-
-  if(key != 'y'){
-    background(0xff000F0D);
-    translate(width/2, height/2);
- whitneyDraw1();
- }
- else if (key == 'y'){
-   background(255);
-   //translate(width*2,height*2);
-   particleSystem();
- }
-//particleSystem();
-  //whitneyDraw2();
-
-  //tint(255, 50);
-  //image(myMovie, -width/2,-height/2 ,width,height);
-
-
-
-}
-
-public void movieEvent(Movie m) {
-  m.read();
+//  if(key == '1'){
+    //background(#000F0D);
+    //translate(width/2, height/2);
+  if (key != '2'){
+    whitneyDraw1();
+  }
+    else if (key == '2'){
+      drawCircle(0,0,2);
+    }
+  //}
+/*  else if (key == '2'){
+    background(#000F0D);
+    particleSystem();
+    //println(Pulse);
+  }
+  else if (key == '3'){
+    drawCircle(0,0,2);
+  }*/
 }
 class Particle {
 
@@ -115,14 +106,15 @@ class Particle {
   }
 
   public void run(){
+    pushMatrix();
     update();
     display();
+    popMatrix();
   }
 
    public void applyForce(PVector force) {
-  // Newton\u2019s second law, but with force accumulation.
-  // We now add each force to acceleration, one at a time.
-    acceleration.add(force);
+    velocity.div(2);
+    acceleration.add(velocity);
  }
   public void update() {
     velocity.add(acceleration);
@@ -132,11 +124,12 @@ class Particle {
   }
 
   public void display() {
+    pushMatrix();
     strokeWeight(5);
-    stroke(0);
-    //fill(255);
-
+    stroke(particleColour);
     point(location.x,location.y);
+    popMatrix();
+
 
   }
 
@@ -147,6 +140,53 @@ class Particle {
       return false;
     }
   }
+}
+/*void counter(){
+
+  if (cntr <=2 ){
+  delta = 0.01;
+  }
+   if (cntr >= 2.8){
+    delta = -0.01;
+  }
+  cntr += delta ;
+}*/
+float sq = 1.5f;
+boolean countUp = true;
+int rectRot = 0;
+float cntr = 2;
+float delta = 0;
+
+
+public void drawCircle(float x,float y, float d){
+//background(0);
+//x  background(0);
+  rectRot+= 4;
+  float col = map(cntr,1.7f,2.8f,0,255);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate((rectRot*0.2f)*TWO_PI/360);
+  stroke(col, 120, col,20);
+  strokeWeight(1);
+  noFill();
+
+  //ellipse(x,y,d,d);
+  //rect(x,y,d,d);
+  stroke(255,50);
+  strokeWeight(3);
+  rect(x ,y ,200,200);
+  popMatrix();
+  if (d>20){
+
+    drawCircle(x+d /cntr, y, d/cntr);
+    drawCircle(x-d /cntr,y,d/cntr);
+    if (key == 'p'){
+
+      drawCircle(x,y+d/2,d/2);
+      drawCircle(x,y-d/2,d/2);
+    }
+
+}
 }
 public void incrementLR(){
 
@@ -179,7 +219,7 @@ public void incrementUD(){
 public void oscEvent(OscMessage inp) {
   if (inp.checkAddrPattern("/myKick")==true){ //Kick Data
   float Kick = inp.get(0).floatValue();
-  myKick = Kick;
+  Pulse = Kick;
   //println(Kick);
   return;
 }
@@ -200,9 +240,9 @@ else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
 }
 public void particleSystem(){
 
-//particles.add(new Particle(new PVector(random(width), random(height))));
-particles.add(new Particle(new PVector(width/2, height/2)));
-  //particles.add(new Particle(new PVector(cos(theta), sin(theta))));
+
+  particles.add(new Particle(new PVector(width/2, height/2)));
+
   for (int i = 0; i < particles.size(); i++) {
     xoff += 0;
     yoff += 0;
@@ -210,13 +250,34 @@ particles.add(new Particle(new PVector(width/2, height/2)));
     p.run();
     if (p.isDead()) {
       particles.remove(i);
-      println("Dead");
     }
-    if (mousePressed) {
-      PVector wind = new PVector(random(-0.5f,0.5f),random(-0.5f,0.5f));
+    if (Pulse > 0.02f) {
+      //PVector wind = new PVector(random(-0.1,0.1),random(-0.1,0.1));
+      PVector wind = new PVector(0,0.2f);
+      //  PVector wind = new PVector(random(-1,1),random(1,-1));
+      wind.rotate(cntr);
       p.applyForce(wind);
+      particleColour = 255;
+      particleBG = 0;
+    }
+    else if (Pulse < 0.02f) {
+      particleColour = 150;
+      particleBG = 0;
     }
   }
+
+}
+
+public void counter(){
+
+
+  if (cntr <= 0){
+    delta = 0.1f;
+  }
+  if (cntr >= TWO_PI){
+    delta = -0.1f;
+  }
+  cntr += delta ;
 }
 public void spherePulse(){
   if (myKick > 0.01f){ //&& //millis() - time >= wait){
@@ -335,87 +396,99 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
 
   float r =200; //radius of rotation
   float a;
-
-   //speed of rotation
   int w = 80;
-  //stroke(LR,UD,160);
-  background(0xff000F0D);
-  //translate(width/2, height/2);
 
+
+
+  background(0xff000F0D);
   for (float c = 1; c < 20; c = c + 1){ //draws lines
 
     strokeWeight(2);
     if (key == 'q'){ // Whitney1
-    stroke(LR,UD,160);
-		line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
-  }
+
+      stroke(LR,UD,160);
+      pushMatrix();
+      translate(width/2, height/2);
+      line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
+      popMatrix();
+    }
     else if (key == 'w'){ //Whitney 2
-    stroke(168,UD,LR);
-    line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
-  }
+      pushMatrix();
+      translate(width/2, height/2);
+      stroke(168,UD,LR);
+      line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
+      popMatrix();
+    }
 
-  else if (key == 'e'){ //Whitney 2 points
-    strokeWeight(5);
-    stroke(168,UD,LR);
-    point(w2x1(t+c*2), w2y1(t+c*2));
-    point((w2x1(t+c*2)) -10, (w2y1(t+c*2))-10);
+    else if (key == 'e'){ //Whitney 2 points
+      pushMatrix();
+      translate(width/2, height/2);
+      strokeWeight(5);
+      stroke(168,UD,LR);
+      point(w2x1(t+c*2), w2y1(t+c*2));
+      point((w2x1(t+c*2)) -10, (w2y1(t+c*2))-10);
+      popMatrix();
 
-  }
+    }
 
-  else if (key == 'r'){ //Whitney 3
-    strokeWeight(2);
-    stroke(120,UD,LR);
-    line(w3x1((-t*tc)+(c *spc)), w3y1((-t*tc)+(c *spc)), w3x2((-t*tc)+(c *spc)),  w3y2((-t*tc)+(c *spc))) ;
-    //point(w3x1((t+c)*50), w3y1((t+c)* 50)) ;
-  }
+    else if (key == 'r'){ //Whitney 3
+      pushMatrix();
+      translate(width/2, height/2);
+      strokeWeight(2);
+      stroke(120,UD,LR);
+      line(w3x1((-t*tc)+(c *spc)), w3y1((-t*tc)+(c *spc)), w3x2((-t*tc)+(c *spc)),  w3y2((-t*tc)+(c *spc))) ;
+      //point(w3x1((t+c)*50), w3y1((t+c)* 50)) ;
+      popMatrix();
+    }
 
-  else if (key == 't'){ // Whitney harmonix
-    noFill();
-    strokeWeight(2);
-    stroke(149,UD,LR);
-    //troke(184,124,82);
-    ellipse(200*cos(c*s*l),200*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
-  }
+    else if (key == 't'){ // Whitney harmonix
+      pushMatrix();
+      translate(width/2, height/2);
+      noFill();
+      strokeWeight(2);
+      stroke(149,UD,LR);
+      //troke(184,124,82);
+      ellipse((200+l)*cos(c*s*l),(200+l)*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
+      popMatrix();
+    }
 
+    else if (key =='y'){
+      //background(#000F0D);
+      particleSystem();
 
+      //println(Pulse);
+    }
+  /*  else if (key == 'u'){
+      pushMatrix();
+      translate(width/2, height/2);
+      //  pushMatrix();
+      drawCircle(0,0,2);
+      popMatrix();
 
+    }
 
-
-  else  {
-    stroke(168,UD,LR);
-    line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2));
-    stroke(LR,UD,160);
-		line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
-
-
-  }
-
-}
-//+ Pulse*0.01;
-l = l + s;
-t = t + 1;
-
-
-}
-private void whitneyDraw2(){
-
-  stroke(168,UD,LR);
-  //background(#000F0D);
-
-
-  for (int c = 0; c < 10; c++){ //draws lines
-
-    strokeWeight(2);
-		line(w2x1(-t+c*2), w2y1(-t+c*2) , w2x2(-t+c*2),  w2y2(-t+c*2)) ;
-
-}
-
-t++; // 1 + Pulse*0.1;
-
-
+    else   {
+      break;
+      /*stroke(168,UD,LR);
+      line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2));
+      stroke(LR,UD,160);
+      line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
+*/
 
 }
-  public void settings() {  size(1400,900, P3D);  smooth(8); }
+
+
+
+  if(Pulse > 0.02f){
+    l = l + s;
+    t = t  + 2;
+  }
+  else{
+    l = l + s;
+    t = t + 0.5f;
+  }
+}
+  public void settings() {  size(1400,900, P3D);  smooth(4); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "ThisShouldWork" };
     if (passedArgs != null) {
