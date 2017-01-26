@@ -6,9 +6,10 @@ void whitneyDraw1(){ //draws a variety of whitney functions
   float a;
   int w = 80;
 
+if (key != 'i'){
+    background(#000F0D);
+  }
 
-
-  background(#000F0D);
   for (float c = 1; c < 20; c = c + 1){ //draws lines
 
     strokeWeight(2);
@@ -55,35 +56,24 @@ void whitneyDraw1(){ //draws a variety of whitney functions
       noFill();
       strokeWeight(2);
       stroke(149,UD,LR);
-      //troke(184,124,82);
       ellipse((200+l)*cos(c*s*l),(200+l)*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
       popMatrix();
     }
 
     else if (key =='y'){
-      //background(#000F0D);
       particleSystem();
-
-      //println(Pulse);
-    }
-  /*  else if (key == 'u'){
-      pushMatrix();
-      translate(width/2, height/2);
-      //  pushMatrix();
-      drawCircle(0,0,2);
-      popMatrix();
-
     }
 
-    else   {
-      break;
-      /*stroke(168,UD,LR);
-      line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2));
-      stroke(LR,UD,160);
-      line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
-*/
+    else if (key == 'u'){
+    drawCircleBG(0,0,300);
+  }
 
+  else if (key == 'i'){
+    drawCircle(0,0,2);
+  }
 }
+
+
 
 
 

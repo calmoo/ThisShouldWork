@@ -12,14 +12,11 @@ void drawCircle(float x,float y, float d){
   float col = map(cntr,1.7,2.8,0,255);
   pushMatrix();
   translate(width/2, height/2);
-  rotate((rectRot*0.2)*TWO_PI/360);
+  rotate((rectRot*0.1)*TWO_PI/360);
   stroke(col, 120, col,20);
   strokeWeight(1);
   noFill();
-
-  //ellipse(x,y,d,d);
-  //rect(x,y,d,d);
-  stroke(255,50);
+  stroke(128,LR,UD,60);
   strokeWeight(3);
   rect(x ,y ,200,200);
   popMatrix();

@@ -6,6 +6,7 @@ import processing.opengl.*;
 import oscP5.*; 
 import netP5.*; 
 import processing.video.*; 
+import peasy.*; 
 
 import java.util.HashMap; 
 import java.util.ArrayList; 
@@ -22,10 +23,14 @@ public class ThisShouldWork extends PApplet {
 
 
 
+
+
+
 ArrayList<Particle> particles;
 Movie myMovie;
 OscP5 osc;
 NetAddress remote;
+PeasyCam camera;
 
 float test;
 float myKick;
@@ -53,7 +58,9 @@ float xoff = 0;
 float yoff = 0;
 
 public void setup() {
-
+  camera = new PeasyCam(this, width/2, height/2, 0, 5000);
+  camera.setMinimumDistance(50);
+  camera.setMaximumDistance(800);
   particles = new ArrayList<Particle>();
   
   
@@ -68,25 +75,15 @@ public void draw(){
   keyPressed();
   incrementLR();
   incrementUD();
+  whitneyDraw1();
+  triangleShape();
+/*  if (key != '2'){
 
-//  if(key == '1'){
-    //background(#000F0D);
-    //translate(width/2, height/2);
-  if (key != '2'){
-    whitneyDraw1();
   }
     else if (key == '2'){
-      drawCircle(0,0,2);
-    }
-  //}
-/*  else if (key == '2'){
-    background(#000F0D);
-    particleSystem();
-    //println(Pulse);
-  }
-  else if (key == '3'){
-    drawCircle(0,0,2);
-  }*/
+       drawCircle(0,0,2);
+    }*/
+
 }
 class Particle {
 
@@ -126,7 +123,7 @@ class Particle {
   public void display() {
     pushMatrix();
     strokeWeight(5);
-    stroke(particleColour);
+    stroke(126,LR,UD);
     point(location.x,location.y);
     popMatrix();
 
@@ -165,14 +162,11 @@ public void drawCircle(float x,float y, float d){
   float col = map(cntr,1.7f,2.8f,0,255);
   pushMatrix();
   translate(width/2, height/2);
-  rotate((rectRot*0.2f)*TWO_PI/360);
+  rotate((rectRot*0.1f)*TWO_PI/360);
   stroke(col, 120, col,20);
   strokeWeight(1);
   noFill();
-
-  //ellipse(x,y,d,d);
-  //rect(x,y,d,d);
-  stroke(255,50);
+  stroke(128,LR,UD,60);
   strokeWeight(3);
   rect(x ,y ,200,200);
   popMatrix();
@@ -184,6 +178,39 @@ public void drawCircle(float x,float y, float d){
 
       drawCircle(x,y+d/2,d/2);
       drawCircle(x,y-d/2,d/2);
+    }
+
+}
+}
+
+public void drawCircleBG(float x,float y, float d){
+//background(0);
+//x  background(0);
+  rectRot+= 4;
+  float col = map(cntr,1.7f,2.8f,0,255);
+  float fractal = map(mouseX,0,width,0.001f,0.1f);
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate((rectRot*fractal)*TWO_PI/360);
+  //stroke(col, 120, col,60);
+  stroke(149,UD,LR,60);
+  strokeWeight(1);
+  noFill();
+
+  ellipse(x,y,d,d);
+  //rect(x,y,d,d);
+  //stroke(255,80);
+//  strokeWeight(3);
+  //rect(x ,y ,200,200);
+  popMatrix();
+  if (d>20){
+
+    drawCircleBG(x+d /cntr, y, d/cntr);
+    drawCircleBG(x-d /cntr,y,d/cntr);
+    if (key == 'p'){
+
+      drawCircleBG(x,y+d/2,d/2);
+      drawCircleBG(x,y-d/2,d/2);
     }
 
 }
@@ -296,6 +323,7 @@ public void spherePulse(){
   }
   public void triangleShape(){
     translate(width/2, height/2, 0);
+    stroke(127,UD,LR);
     beginShape();
     int vertX = 200;
     vertex(-vertX, -vertX, -vertX);
@@ -398,9 +426,10 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
   float a;
   int w = 80;
 
+if (key != 'i'){
+    background(0xff000F0D);
+  }
 
-
-  background(0xff000F0D);
   for (float c = 1; c < 20; c = c + 1){ //draws lines
 
     strokeWeight(2);
@@ -447,35 +476,24 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
       noFill();
       strokeWeight(2);
       stroke(149,UD,LR);
-      //troke(184,124,82);
       ellipse((200+l)*cos(c*s*l),(200+l)*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
       popMatrix();
     }
 
     else if (key =='y'){
-      //background(#000F0D);
       particleSystem();
-
-      //println(Pulse);
-    }
-  /*  else if (key == 'u'){
-      pushMatrix();
-      translate(width/2, height/2);
-      //  pushMatrix();
-      drawCircle(0,0,2);
-      popMatrix();
-
     }
 
-    else   {
-      break;
-      /*stroke(168,UD,LR);
-      line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2));
-      stroke(LR,UD,160);
-      line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
-*/
+    else if (key == 'u'){
+    drawCircleBG(0,0,300);
+  }
 
+  else if (key == 'i'){
+    drawCircle(0,0,2);
+  }
 }
+
+
 
 
 

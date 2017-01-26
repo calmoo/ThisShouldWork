@@ -1,11 +1,15 @@
 import oscP5.*;
 import netP5.*;
 import processing.video.*;
+import peasy.*;
+
+
 
 ArrayList<Particle> particles;
 Movie myMovie;
 OscP5 osc;
 NetAddress remote;
+PeasyCam camera;
 
 float test;
 float myKick;
@@ -33,7 +37,9 @@ float xoff = 0;
 float yoff = 0;
 
 void setup() {
-
+  camera = new PeasyCam(this, width/2, height/2, 0, 5000);
+  camera.setMinimumDistance(50);
+  camera.setMaximumDistance(800);
   particles = new ArrayList<Particle>();
   size(1400,900, P3D);
   smooth(4);
@@ -48,23 +54,13 @@ void draw(){
   keyPressed();
   incrementLR();
   incrementUD();
+  whitneyDraw1();
+  triangleShape();
+/*  if (key != '2'){
 
-//  if(key == '1'){
-    //background(#000F0D);
-    //translate(width/2, height/2);
-  if (key != '2'){
-    whitneyDraw1();
   }
     else if (key == '2'){
-      drawCircle(0,0,2);
-    }
-  //}
-/*  else if (key == '2'){
-    background(#000F0D);
-    particleSystem();
-    //println(Pulse);
-  }
-  else if (key == '3'){
-    drawCircle(0,0,2);
-  }*/
+       drawCircle(0,0,2);
+    }*/
+
 }
