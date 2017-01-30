@@ -53,6 +53,7 @@ int d = 50;
 float s = 2 * 3.1416f / (3*60);
 float xoff = 0;
 float yoff = 0;
+int kickCounter = 0;
 
 public void setup() {
   camera = new PeasyCam(this, width/2, height/2, 0, 5000);
@@ -233,7 +234,13 @@ public void oscEvent(OscMessage inp) {
   if (inp.checkAddrPattern("/myKick")==true){ //Kick Data
   float Kick = inp.get(0).floatValue();
   Pulse = Kick;
-  //println(Kick);
+  if (Pulse > 0){
+  kickCounter++;
+  if (kickCounter > 7){
+    kickCounter = 0;
+  }
+  println(kickCounter);
+}
   return;
 }
 
@@ -412,8 +419,8 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
   float a;
   int w = 80;
 
-if (key != 'i'){
-    background(0xff000F0D);
+/*if (key != 'i'){
+    background(#000F0D);
   }
 
   for (float c = 1; c < 20; c = c + 1){ //draws lines
@@ -477,7 +484,90 @@ if (key != 'i'){
   else if (key == 'i'){
     drawCircle(0,0,40);
   }
-}
+}*/
+
+
+  /*if (keyCounter != 7){
+      background(#000F0D);
+    }*/
+    if (kickCounter != 7){
+        background(0xff000F0D);
+      }
+
+    for (float c = 1; c < 20; c = c + 1){ //draws lines
+      strokeWeight(2);
+
+      switch(kickCounter){
+
+      case 0: // Whitney1
+
+        stroke(LR,UD,160);
+        pushMatrix();
+        translate(width/2, height/2);
+        line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
+        popMatrix();
+        break;
+
+      case 1: //Whitney 2
+        pushMatrix();
+        translate(width/2, height/2);
+        stroke(168,UD,LR);
+        line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
+        popMatrix();
+        break;
+
+      case 2: //Whitney 2 points
+        pushMatrix();
+        translate(width/2, height/2);
+        strokeWeight(5);
+        stroke(168,UD,LR);
+        point(w2x1(t+c*2), w2y1(t+c*2));
+        point((w2x1(t+c*2)) -10, (w2y1(t+c*2))-10);
+        popMatrix();
+        break;
+
+
+
+      case 3: //Whitney 3
+        pushMatrix();
+        translate(width/2, height/2);
+        strokeWeight(2);
+        stroke(120,UD,LR);
+        line(w3x1((-t*tc)+(c *spc)), w3y1((-t*tc)+(c *spc)), w3x2((-t*tc)+(c *spc)),  w3y2((-t*tc)+(c *spc))) ;
+        //point(w3x1((t+c)*50), w3y1((t+c)* 50)) ;
+        popMatrix();
+        break;
+
+
+      case 4: // Whitney harmonix
+        pushMatrix();
+        translate(width/2, height/2);
+        noFill();
+        strokeWeight(2);
+        stroke(149,-LR,LR);
+        ellipse((200+l)*cos(c*s*l),(200+l)*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
+        popMatrix();
+        break;
+
+
+      case 5:
+        particleSystem();
+        break;
+
+
+      case 6:
+        drawCircleBG(0,0,300);
+        break;
+
+
+      case 7:
+        drawCircle(0,0,40);
+        break;
+      }
+    }
+
+
+
 
 
 

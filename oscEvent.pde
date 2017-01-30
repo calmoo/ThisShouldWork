@@ -4,8 +4,12 @@ void oscEvent(OscMessage inp) {
   if (inp.checkAddrPattern("/myKick")==true){ //Kick Data
   float Kick = inp.get(0).floatValue();
   Pulse = Kick;
-  if (Pulse) > 0.02){
+  if (Pulse > 0){
   kickCounter++;
+  if (kickCounter > 7){
+    kickCounter = 0;
+  }
+  println(kickCounter);
 }
   return;
 }
