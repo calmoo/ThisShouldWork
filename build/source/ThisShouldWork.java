@@ -24,8 +24,6 @@ public class ThisShouldWork extends PApplet {
 
 
 
-
-
 ArrayList<Particle> particles;
 Movie myMovie;
 OscP5 osc;
@@ -36,7 +34,6 @@ float test;
 float myKick;
 float myDelay;
 float myVert=0;
-
 
 int particleColour = 0;
 int particleBG = 0;
@@ -76,14 +73,7 @@ public void draw(){
   incrementLR();
   incrementUD();
   whitneyDraw1();
-  triangleShape();
-/*  if (key != '2'){
-
-  }
-    else if (key == '2'){
-       drawCircle(0,0,2);
-    }*/
-
+  //triangleShape();
 }
 class Particle {
 
@@ -138,16 +128,16 @@ class Particle {
     }
   }
 }
-/*void counter(){
+public void count(){
 
   if (cntr <=2 ){
-  delta = 0.01;
+  delta = 0.01f;
   }
-   if (cntr >= 2.8){
-    delta = -0.01;
+   if (cntr >= 2.8f){
+    delta = -0.01f;
   }
   cntr += delta ;
-}*/
+}
 float sq = 1.5f;
 boolean countUp = true;
 int rectRot = 0;
@@ -156,20 +146,21 @@ float delta = 0;
 
 
 public void drawCircle(float x,float y, float d){
-//background(0);
-//x  background(0);
-  rectRot+= 4;
+
+
   float col = map(cntr,1.7f,2.8f,0,255);
+
   pushMatrix();
   translate(width/2, height/2);
-  rotate((rectRot*0.1f)*TWO_PI/360);
-  stroke(col, 120, col,20);
+  rotate((rectRot*1)*TWO_PI/360);
+
   strokeWeight(1);
   noFill();
-  stroke(128,LR,UD,60);
+  stroke(128,LR,UD,40);
   strokeWeight(3);
   rect(x ,y ,200,200);
   popMatrix();
+
   if (d>20){
 
     drawCircle(x+d /cntr, y, d/cntr);
@@ -184,50 +175,45 @@ public void drawCircle(float x,float y, float d){
 }
 
 public void drawCircleBG(float x,float y, float d){
-//background(0);
-//x  background(0);
+  
   rectRot+= 4;
   float col = map(cntr,1.7f,2.8f,0,255);
   float fractal = map(mouseX,0,width,0.001f,0.1f);
+
   pushMatrix();
+
   translate(width/2, height/2);
   rotate((rectRot*fractal)*TWO_PI/360);
-  //stroke(col, 120, col,60);
   stroke(149,UD,LR,60);
   strokeWeight(1);
   noFill();
-
   ellipse(x,y,d,d);
-  //rect(x,y,d,d);
-  //stroke(255,80);
-//  strokeWeight(3);
-  //rect(x ,y ,200,200);
+
   popMatrix();
+
   if (d>20){
 
     drawCircleBG(x+d /cntr, y, d/cntr);
     drawCircleBG(x-d /cntr,y,d/cntr);
-    if (key == 'p'){
 
+    if (key == 'p'){
       drawCircleBG(x,y+d/2,d/2);
       drawCircleBG(x,y-d/2,d/2);
     }
 
 }
 }
+
+float gamma = 1;
+
 public void incrementLR(){
-
-  while (LR < 150){
-    LR = LR + 0.1f;
-  //   LR = LR + int(myVert);
-
-    if (LR >150){
-      LR = 1;
-    }
-    //println(LR);
-    return;
-
+  if (LR <= 1){
+    gamma = 1;
   }
+  if (LR >= 150){
+    gamma = -1;
+  }
+  LR += gamma;
 }
 public void incrementUD(){
   while (UD < 360){
@@ -475,7 +461,7 @@ if (key != 'i'){
       translate(width/2, height/2);
       noFill();
       strokeWeight(2);
-      stroke(149,UD,LR);
+      stroke(149,-LR,LR);
       ellipse((200+l)*cos(c*s*l),(200+l)*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
       popMatrix();
     }
@@ -489,7 +475,7 @@ if (key != 'i'){
   }
 
   else if (key == 'i'){
-    drawCircle(0,0,2);
+    drawCircle(0,0,40);
   }
 }
 

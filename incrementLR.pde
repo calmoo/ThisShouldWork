@@ -1,14 +1,12 @@
+
+float gamma = 1;
+
 void incrementLR(){
-
-  while (LR < 150){
-    LR = LR + 0.1;
-  //   LR = LR + int(myVert);
-
-    if (LR >150){
-      LR = 1;
-    }
-    //println(LR);
-    return;
-
+  if (LR <= 1){
+    gamma = 1;
   }
+  if (LR >= 150){
+    gamma = -1;
+  }
+  LR += gamma;
 }

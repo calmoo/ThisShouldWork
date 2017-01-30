@@ -55,7 +55,7 @@ if (key != 'i'){
       translate(width/2, height/2);
       noFill();
       strokeWeight(2);
-      stroke(149,UD,LR);
+      stroke(149,-LR,LR);
       ellipse((200+l)*cos(c*s*l),(200+l)*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
       popMatrix();
     }
@@ -69,7 +69,7 @@ if (key != 'i'){
   }
 
   else if (key == 'i'){
-    drawCircle(0,0,2);
+    drawCircle(0,0,40);
   }
 }
 

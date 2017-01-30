@@ -3,8 +3,6 @@ import netP5.*;
 import processing.video.*;
 import peasy.*;
 
-
-
 ArrayList<Particle> particles;
 Movie myMovie;
 OscP5 osc;
@@ -15,7 +13,6 @@ float test;
 float myKick;
 float myDelay;
 float myVert=0;
-
 
 int particleColour = 0;
 int particleBG = 0;
@@ -35,6 +32,7 @@ int d = 50;
 float s = 2 * 3.1416 / (3*60);
 float xoff = 0;
 float yoff = 0;
+int kickCounter = 0;
 
 void setup() {
   camera = new PeasyCam(this, width/2, height/2, 0, 5000);
@@ -55,12 +53,5 @@ void draw(){
   incrementLR();
   incrementUD();
   whitneyDraw1();
-  triangleShape();
-/*  if (key != '2'){
-
-  }
-    else if (key == '2'){
-       drawCircle(0,0,2);
-    }*/
-
+  //triangleShape();
 }

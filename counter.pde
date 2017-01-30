@@ -1,4 +1,4 @@
-/*void counter(){
+void count(){
 
   if (cntr <=2 ){
   delta = 0.01;
@@ -7,4 +7,4 @@
     delta = -0.01;
   }
   cntr += delta ;
-}*/
+}

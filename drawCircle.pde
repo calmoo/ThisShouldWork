@@ -6,20 +6,21 @@ float delta = 0;
 
 
 void drawCircle(float x,float y, float d){
-//background(0);
-//x  background(0);
-  rectRot+= 4;
+
+
   float col = map(cntr,1.7,2.8,0,255);
+
   pushMatrix();
   translate(width/2, height/2);
-  rotate((rectRot*0.1)*TWO_PI/360);
-  stroke(col, 120, col,20);
+  rotate((rectRot*1)*TWO_PI/360);
+
   strokeWeight(1);
   noFill();
-  stroke(128,LR,UD,60);
+  stroke(128,LR,UD,40);
   strokeWeight(3);
   rect(x ,y ,200,200);
   popMatrix();
+
   if (d>20){
 
     drawCircle(x+d /cntr, y, d/cntr);
