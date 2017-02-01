@@ -73,18 +73,18 @@ void whitneyDraw1(){ //draws a variety of whitney functions
   }
 }*/
 
-
   /*if (keyCounter != 7){
       background(#000F0D);
     }*/
-    if (kickCounter != 7){
-        background(#000F0D);
+    if ((clapCounter != 5) && (clapCounter != 7)){
+        background(defBackground);
+        background (map(kickCounter,0,7,0,80),40,UD);
       }
 
     for (float c = 1; c < 20; c = c + 1){ //draws lines
       strokeWeight(2);
 
-      switch(kickCounter){
+      switch(clapCounter){
 
       case 0: // Whitney1
 
@@ -152,13 +152,6 @@ void whitneyDraw1(){ //draws a variety of whitney functions
         break;
       }
     }
-
-
-
-
-
-
-
 
   if(Pulse > 0.02){
     l = l + s;

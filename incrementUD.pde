@@ -3,7 +3,7 @@ void incrementUD(){
     UD = UD + 1;
   //  UD = UD + myVert;
     //UD = UD + (myKick + 20);
-    if (UD  > 124){
+    if (UD  > 80){
       UD = 1;
     }
    // println(UD);

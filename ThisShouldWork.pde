@@ -33,11 +33,16 @@ float s = 2 * 3.1416 / (3*60);
 float xoff = 0;
 float yoff = 0;
 int kickCounter = 0;
+int clapCounter = 0;
+float panX = width/2;
+float cameraCount = width/2;
+color defBackground = color (0,15,13);
 
 void setup() {
-  camera = new PeasyCam(this, width/2, height/2, 0, 5000);
-  camera.setMinimumDistance(50);
-  camera.setMaximumDistance(800);
+//  camera = new PeasyCam(this, width/2, height/2, 0, 5000);
+  //camera.setMinimumDistance(50);
+  //camera.setMaximumDistance(800);
+
   particles = new ArrayList<Particle>();
   size(1400,900, P3D);
   smooth(4);
@@ -48,10 +53,11 @@ void setup() {
 }
 
 void draw(){
+  //camera(width/2,height/2, mouseY, 0, 0, 0, 0, -1, 0);
   rectRot++;
   keyPressed();
   incrementLR();
   incrementUD();
   whitneyDraw1();
-  //triangleShape();
+  triangleShape();
 }

@@ -22,9 +22,18 @@ else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data
 }
 
 else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
-  float Clap = inp.get(0).floatValue();
+  float oscClap = inp.get(0).floatValue();
+  float Clap = oscClap;
+  if (Clap > 0){
+    clapCounter++;
+    println(clapCounter);
+
+    if (clapCounter > 7){
+      clapCounter = 0;
+    }
+  }
   return;
 
-  }
+}
 
 }

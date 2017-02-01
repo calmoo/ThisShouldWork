@@ -28,7 +28,7 @@ void particleSystem(){
 
 }
 
-void counter(){
+/*void counter(){
 
 
   if (cntr <= 0){
@@ -38,4 +38,4 @@ void counter(){
     delta = -0.1;
   }
   cntr += delta ;
-}
+}*/

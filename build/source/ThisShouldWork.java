@@ -54,11 +54,16 @@ float s = 2 * 3.1416f / (3*60);
 float xoff = 0;
 float yoff = 0;
 int kickCounter = 0;
+int clapCounter = 0;
+float panX = width/2;
+float cameraCount = width/2;
+int defBackground = color (0,15,13);
 
 public void setup() {
-  camera = new PeasyCam(this, width/2, height/2, 0, 5000);
-  camera.setMinimumDistance(50);
-  camera.setMaximumDistance(800);
+//  camera = new PeasyCam(this, width/2, height/2, 0, 5000);
+  //camera.setMinimumDistance(50);
+  //camera.setMaximumDistance(800);
+
   particles = new ArrayList<Particle>();
   
   
@@ -69,12 +74,13 @@ public void setup() {
 }
 
 public void draw(){
+  //camera(width/2,height/2, mouseY, 0, 0, 0, 0, -1, 0);
   rectRot++;
   keyPressed();
   incrementLR();
   incrementUD();
   whitneyDraw1();
-  //triangleShape();
+  triangleShape();
 }
 class Particle {
 
@@ -128,6 +134,12 @@ class Particle {
       return false;
     }
   }
+}
+public void cameraCounter(){
+  for (int i = 0; i < 1000; i+= 0.1f){
+    cameraCount = i;
+  }
+//  cameraCount = width/2;
 }
 public void count(){
 
@@ -221,7 +233,7 @@ public void incrementUD(){
     UD = UD + 1;
   //  UD = UD + myVert;
     //UD = UD + (myKick + 20);
-    if (UD  > 124){
+    if (UD  > 80){
       UD = 1;
     }
    // println(UD);
@@ -252,10 +264,19 @@ else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data
 }
 
 else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
-  float Clap = inp.get(0).floatValue();
+  float oscClap = inp.get(0).floatValue();
+  float Clap = oscClap;
+  if (Clap > 0){
+    clapCounter++;
+    println(clapCounter);
+
+    if (clapCounter > 7){
+      clapCounter = 0;
+    }
+  }
   return;
 
-  }
+}
 
 }
 public void particleSystem(){
@@ -288,17 +309,17 @@ public void particleSystem(){
 
 }
 
-public void counter(){
+/*void counter(){
 
 
   if (cntr <= 0){
-    delta = 0.1f;
+    delta = 0.1;
   }
   if (cntr >= TWO_PI){
-    delta = -0.1f;
+    delta = -0.1;
   }
   cntr += delta ;
-}
+}*/
 public void spherePulse(){
   if (myKick > 0.01f){ //&& //millis() - time >= wait){
     for (int i = 0; i < 60; i++){
@@ -317,6 +338,8 @@ public void spherePulse(){
   public void triangleShape(){
     translate(width/2, height/2, 0);
     stroke(127,UD,LR);
+    rotate(map(kickCounter,0,7,0,TWO_PI));
+    //lerp(x, mouseX, 0.05);
     beginShape();
     int vertX = 200;
     vertex(-vertX, -vertX, -vertX);
@@ -486,18 +509,18 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
   }
 }*/
 
-
   /*if (keyCounter != 7){
       background(#000F0D);
     }*/
-    if (kickCounter != 7){
-        background(0xff000F0D);
+    if ((clapCounter != 5) && (clapCounter != 7)){
+        background(defBackground);
+        background (map(kickCounter,0,7,0,80),40,UD);
       }
 
     for (float c = 1; c < 20; c = c + 1){ //draws lines
       strokeWeight(2);
 
-      switch(kickCounter){
+      switch(clapCounter){
 
       case 0: // Whitney1
 
@@ -565,13 +588,6 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
         break;
       }
     }
-
-
-
-
-
-
-
 
   if(Pulse > 0.02f){
     l = l + s;
