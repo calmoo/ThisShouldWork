@@ -60,9 +60,9 @@ float cameraCount = width/2;
 int defBackground = color (0,15,13);
 
 public void setup() {
-//  camera = new PeasyCam(this, width/2, height/2, 0, 5000);
-  //camera.setMinimumDistance(50);
-  //camera.setMaximumDistance(800);
+  camera = new PeasyCam(this, width/2, height/2, 0, 5000);
+  camera.setMinimumDistance(50);
+  camera.setMaximumDistance(800);
 
   particles = new ArrayList<Particle>();
   
@@ -75,12 +75,23 @@ public void setup() {
 
 public void draw(){
   //camera(width/2,height/2, mouseY, 0, 0, 0, 0, -1, 0);
+  camera(width/2, height/2.0f, (mouseY/2.0f) / tan(PI*30.0f / 180.0f), width/2.0f, height/2.0f, 0, 0, 1, 0);
   rectRot++;
   keyPressed();
   incrementLR();
   incrementUD();
   whitneyDraw1();
   triangleShape();
+}
+
+public void mousePressed() {
+  clapCounter++;
+  println(clapCounter);
+
+  if (clapCounter > 7){
+    clapCounter = 0;
+  }
+
 }
 class Particle {
 
