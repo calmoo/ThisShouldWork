@@ -5,8 +5,6 @@ import processing.opengl.*;
 
 import oscP5.*; 
 import netP5.*; 
-import processing.video.*; 
-import peasy.*; 
 
 import java.util.HashMap; 
 import java.util.ArrayList; 
@@ -22,13 +20,9 @@ public class ThisShouldWork extends PApplet {
 
 
 
-
-
 ArrayList<Particle> particles;
-Movie myMovie;
 OscP5 osc;
 NetAddress remote;
-PeasyCam camera;
 
 float test;
 float myKick;
@@ -59,12 +53,17 @@ float panX = width/2;
 float cameraCount = width/2;
 int defBackground = color (0,15,13);
 
+  PanTiltMover ptm = new PanTiltMover();
+
 public void setup() {
-  camera = new PeasyCam(this, width/2, height/2, 0, 5000);
-  camera.setMinimumDistance(50);
-  camera.setMaximumDistance(800);
+  //camera = new PeasyCam(this, width/2, height/2, 0, 5000);
+//  camera.setMinimumDistance(50);
+  //camera.setMaximumDistance(800);
 
   particles = new ArrayList<Particle>();
+
+
+
   
   
   frameRate(60);
@@ -75,13 +74,15 @@ public void setup() {
 
 public void draw(){
   //camera(width/2,height/2, mouseY, 0, 0, 0, 0, -1, 0);
-  camera(width/2, height/2.0f, (mouseY/2.0f) / tan(PI*30.0f / 180.0f), width/2.0f, height/2.0f, 0, 0, 1, 0);
-  rectRot++;
+  //camera(width/2, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
+  camera(panAmount, tiltAmount, (height/2.0f) / tan(PI*30.0f / 180.0f), width/2.0f, height/2.0f, 0, 0, 1, 0);
+  //rectRot++;
   keyPressed();
   incrementLR();
   incrementUD();
   whitneyDraw1();
   triangleShape();
+  ptm.run();
 }
 
 public void mousePressed() {
@@ -92,6 +93,48 @@ public void mousePressed() {
     clapCounter = 0;
   }
 
+}
+float panAmount = 0;
+float tiltAmount = 0;
+float alpha = 4;
+float beta = 4;
+
+
+class PanTiltMover{
+
+  public void run(){
+    if (clapCounter <= 3){
+      cameraPan();
+    }
+
+   else if (clapCounter >=4){
+      cameraTilt();
+    }
+  }
+
+
+
+
+  public void cameraPan(){
+    if (panAmount < 0){
+      alpha = 4;
+    }
+    else if (panAmount > width){
+      alpha = -4;
+    }
+    panAmount += alpha;
+    println(panAmount);
+  }
+
+  public void cameraTilt(){
+    if (tiltAmount < 0){
+      beta = 4;
+    }
+    else if (tiltAmount > height){
+      beta = -4;
+    }
+    tiltAmount += beta;
+  }
 }
 class Particle {
 
@@ -279,7 +322,7 @@ else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
   float Clap = oscClap;
   if (Clap > 0){
     clapCounter++;
-    println(clapCounter);
+  //  println(clapCounter);
 
     if (clapCounter > 7){
       clapCounter = 0;
@@ -349,7 +392,7 @@ public void spherePulse(){
   public void triangleShape(){
     translate(width/2, height/2, 0);
     stroke(127,UD,LR);
-    rotate(map(kickCounter,0,7,0,TWO_PI));
+    //rotate(map(kickCounter,0,7,0,TWO_PI));
     //lerp(x, mouseX, 0.05);
     beginShape();
     int vertX = 200;

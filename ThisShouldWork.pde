@@ -1,13 +1,9 @@
 import oscP5.*;
 import netP5.*;
-import processing.video.*;
-import peasy.*;
 
 ArrayList<Particle> particles;
-Movie myMovie;
 OscP5 osc;
 NetAddress remote;
-PeasyCam camera;
 
 float test;
 float myKick;
@@ -38,12 +34,17 @@ float panX = width/2;
 float cameraCount = width/2;
 color defBackground = color (0,15,13);
 
+  PanTiltMover ptm = new PanTiltMover();
+
 void setup() {
-  camera = new PeasyCam(this, width/2, height/2, 0, 5000);
-  camera.setMinimumDistance(50);
-  camera.setMaximumDistance(800);
+  //camera = new PeasyCam(this, width/2, height/2, 0, 5000);
+//  camera.setMinimumDistance(50);
+  //camera.setMaximumDistance(800);
 
   particles = new ArrayList<Particle>();
+
+
+
   size(1400,900, P3D);
   smooth(4);
   frameRate(60);
@@ -54,13 +55,15 @@ void setup() {
 
 void draw(){
   //camera(width/2,height/2, mouseY, 0, 0, 0, 0, -1, 0);
-  camera(width/2, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
-  rectRot++;
+  //camera(width/2, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
+  camera(panAmount, tiltAmount, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
+  //rectRot++;
   keyPressed();
   incrementLR();
   incrementUD();
   whitneyDraw1();
   triangleShape();
+  ptm.run();
 }
 
 void mousePressed() {

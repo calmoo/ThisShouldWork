@@ -26,7 +26,7 @@ else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
   float Clap = oscClap;
   if (Clap > 0){
     clapCounter++;
-    println(clapCounter);
+  //  println(clapCounter);
 
     if (clapCounter > 7){
       clapCounter = 0;
