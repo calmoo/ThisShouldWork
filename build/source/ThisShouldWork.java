@@ -5,6 +5,7 @@ import processing.opengl.*;
 
 import oscP5.*; 
 import netP5.*; 
+import controlP5.*; 
 
 import java.util.HashMap; 
 import java.util.ArrayList; 
@@ -20,9 +21,12 @@ public class ThisShouldWork extends PApplet {
 
 
 
+
 ArrayList<Particle> particles;
+ControlP5 cp5;
 OscP5 osc;
 NetAddress remote;
+Slider abc;
 
 float test;
 float myKick;
@@ -48,23 +52,30 @@ float s = 2 * 3.1416f / (3*60);
 float xoff = 0;
 float yoff = 0;
 int kickCounter = 0;
-int clapCounter = 0;
+float clapCounter = 0;
 float panX = width/2;
 float cameraCount = width/2;
 int defBackground = color (0,15,13);
+float sceneChangeFreq = 1;
+int sceneIntervalCounter = 0;
 
-  PanTiltMover ptm = new PanTiltMover();
+PanTiltMover ptm = new PanTiltMover();
 
 public void setup() {
-  //camera = new PeasyCam(this, width/2, height/2, 0, 5000);
-//  camera.setMinimumDistance(50);
-  //camera.setMaximumDistance(800);
+
+  cp5 = new ControlP5(this);
+  cp5.addSlider("sceneChangeFreq")
+     .setPosition(100,800)
+     .setWidth(400)
+     .setRange(0.25f,4)
+     .setValue(0.5f)
+     .setNumberOfTickMarks(4)
+     .setSliderMode(Slider.FLEXIBLE)
+     ;
 
   particles = new ArrayList<Particle>();
-
-
-
   
+
   
   frameRate(60);
   osc = new OscP5(this,8000);
@@ -73,27 +84,32 @@ public void setup() {
 }
 
 public void draw(){
-  //camera(width/2,height/2, mouseY, 0, 0, 0, 0, -1, 0);
-  //camera(width/2, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
+
+  beginCamera();
   camera(panAmount, tiltAmount, (height/2.0f) / tan(PI*30.0f / 180.0f), width/2.0f, height/2.0f, 0, 0, 1, 0);
-  //rectRot++;
+  rectRot++;
   keyPressed();
   incrementLR();
   incrementUD();
   whitneyDraw1();
   triangleShape();
   ptm.run();
+  endCamera();
+
 }
 
 public void mousePressed() {
-  clapCounter++;
+  clapCounter += sceneChangeFreq;
+  sceneIntervalCounter = PApplet.parseInt(clapCounter);
   println(clapCounter);
 
-  if (clapCounter > 7){
-    clapCounter = 0;
-  }
+//  println(clapCounter);
 
-}
+  if (sceneIntervalCounter > 7){
+    clapCounter = 0;
+    sceneIntervalCounter = 0;
+  }
+  }
 float panAmount = 0;
 float tiltAmount = 0;
 float alpha = 4;
@@ -123,7 +139,7 @@ class PanTiltMover{
       alpha = -4;
     }
     panAmount += alpha;
-    println(panAmount);
+    //println(panAmount);
   }
 
   public void cameraTilt(){
@@ -305,7 +321,7 @@ public void oscEvent(OscMessage inp) {
   if (kickCounter > 7){
     kickCounter = 0;
   }
-  println(kickCounter);
+  //println(kickCounter);
 }
   return;
 }
@@ -321,11 +337,15 @@ else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
   float oscClap = inp.get(0).floatValue();
   float Clap = oscClap;
   if (Clap > 0){
-    clapCounter++;
+    clapCounter += sceneChangeFreq;
+    sceneIntervalCounter = PApplet.parseInt(clapCounter);
   //  println(clapCounter);
 
-    if (clapCounter > 7){
+  //  println(clapCounter);
+
+    if (sceneIntervalCounter > 7){
       clapCounter = 0;
+      sceneIntervalCounter = 7;
     }
   }
   return;
@@ -574,7 +594,7 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
     for (float c = 1; c < 20; c = c + 1){ //draws lines
       strokeWeight(2);
 
-      switch(clapCounter){
+      switch(sceneIntervalCounter){
 
       case 0: // Whitney1
 

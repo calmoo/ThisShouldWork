@@ -9,7 +9,7 @@ void oscEvent(OscMessage inp) {
   if (kickCounter > 7){
     kickCounter = 0;
   }
-  println(kickCounter);
+  //println(kickCounter);
 }
   return;
 }
@@ -25,11 +25,15 @@ else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
   float oscClap = inp.get(0).floatValue();
   float Clap = oscClap;
   if (Clap > 0){
-    clapCounter++;
+    clapCounter += sceneChangeFreq;
+    sceneIntervalCounter = int(clapCounter);
   //  println(clapCounter);
 
-    if (clapCounter > 7){
+  //  println(clapCounter);
+
+    if (sceneIntervalCounter > 7){
       clapCounter = 0;
+      sceneIntervalCounter = 7;
     }
   }
   return;

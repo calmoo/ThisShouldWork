@@ -1,9 +1,12 @@
 import oscP5.*;
 import netP5.*;
+import controlP5.*;
 
 ArrayList<Particle> particles;
+ControlP5 cp5;
 OscP5 osc;
 NetAddress remote;
+Slider abc;
 
 float test;
 float myKick;
@@ -29,23 +32,30 @@ float s = 2 * 3.1416 / (3*60);
 float xoff = 0;
 float yoff = 0;
 int kickCounter = 0;
-int clapCounter = 0;
+float clapCounter = 0;
 float panX = width/2;
 float cameraCount = width/2;
 color defBackground = color (0,15,13);
+float sceneChangeFreq = 1;
+int sceneIntervalCounter = 0;
 
-  PanTiltMover ptm = new PanTiltMover();
+PanTiltMover ptm = new PanTiltMover();
 
 void setup() {
-  //camera = new PeasyCam(this, width/2, height/2, 0, 5000);
-//  camera.setMinimumDistance(50);
-  //camera.setMaximumDistance(800);
+
+  cp5 = new ControlP5(this);
+  cp5.addSlider("sceneChangeFreq")
+     .setPosition(100,800)
+     .setWidth(400)
+     .setRange(0.25,4)
+     .setValue(0.5)
+     .setNumberOfTickMarks(4)
+     .setSliderMode(Slider.FLEXIBLE)
+     ;
 
   particles = new ArrayList<Particle>();
-
-
-
   size(1400,900, P3D);
+
   smooth(4);
   frameRate(60);
   osc = new OscP5(this,8000);
@@ -54,24 +64,29 @@ void setup() {
 }
 
 void draw(){
-  //camera(width/2,height/2, mouseY, 0, 0, 0, 0, -1, 0);
-  //camera(width/2, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
+
+  beginCamera();
   camera(panAmount, tiltAmount, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
-  //rectRot++;
+  rectRot++;
   keyPressed();
   incrementLR();
   incrementUD();
   whitneyDraw1();
   triangleShape();
   ptm.run();
+  endCamera();
+
 }
 
 void mousePressed() {
-  clapCounter++;
+  clapCounter += sceneChangeFreq;
+  sceneIntervalCounter = int(clapCounter);
   println(clapCounter);
 
-  if (clapCounter > 7){
-    clapCounter = 0;
-  }
+//  println(clapCounter);
 
-}
+  if (sceneIntervalCounter > 7){
+    clapCounter = 0;
+    sceneIntervalCounter = 0;
+  }
+  }

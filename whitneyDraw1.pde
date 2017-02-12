@@ -84,7 +84,7 @@ void whitneyDraw1(){ //draws a variety of whitney functions
     for (float c = 1; c < 20; c = c + 1){ //draws lines
       strokeWeight(2);
 
-      switch(clapCounter){
+      switch(sceneIntervalCounter){
 
       case 0: // Whitney1
 
