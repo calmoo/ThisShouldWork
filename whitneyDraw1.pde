@@ -20,6 +20,7 @@ void whitneyDraw1(){ //draws a variety of whitney functions
 
         stroke(LR,UD,160);
         pushMatrix();
+
         translate(width/2, height/2);
         line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
         popMatrix();
@@ -27,6 +28,7 @@ void whitneyDraw1(){ //draws a variety of whitney functions
 
       case 1: //Whitney 2
         pushMatrix();
+        circleSystem();
         translate(width/2, height/2);
         stroke(168,UD,LR);
         line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;

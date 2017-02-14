@@ -55,6 +55,7 @@ void setup() {
      ;
 
   particles = new ArrayList<Particle>();
+  circles = new ArrayList<Circle>();
   size(1400,900, P3D);
 
   smooth(4);

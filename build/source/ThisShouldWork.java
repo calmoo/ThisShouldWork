@@ -75,6 +75,7 @@ public void setup() {
      ;
 
   particles = new ArrayList<Particle>();
+  circles = new ArrayList<Circle>();
   
 
   
@@ -86,7 +87,6 @@ public void setup() {
 
 public void draw(){
   pushMatrix();
-  //beginCamera();
   camera(panAmount, tiltAmount, (height/2.0f) / tan(PI*30.0f / 180.0f), width/2.0f, height/2.0f, 0, 0, 1, 0);
   rectRot++;
   keyPressed();
@@ -104,12 +104,10 @@ public void mousePressed() {
   sceneIntervalCounter = PApplet.parseInt(clapCounter);
   println(clapCounter);
 
-//  println(clapCounter);
-
   if (sceneIntervalCounter > 7){
     clapCounter = 0;
     sceneIntervalCounter = 0;
-  }
+    }
   }
 class Circle {
 
@@ -121,7 +119,7 @@ class Circle {
   Circle(PVector l) {
     location = l.get();
     acceleration = new PVector(0,0);
-     //float theta = map(noise(xoff,yoff),0,1,0,TWO_PI);
+    //float theta = map(noise(xoff,yoff),0,1,0,TWO_PI);
 
     velocity = new PVector(random(-0.5f,0.5f),random(-0.5f,0.5f));
     //velocity = new PVector(cos(theta),sin(theta));
@@ -132,13 +130,15 @@ class Circle {
     pushMatrix();
     update();
     display();
+    checkEdges();
     popMatrix();
   }
 
-   public void applyForce(PVector force) {
-    velocity.div(2);
-    acceleration.add(velocity);
- }
+  public void applyForce(PVector force) {
+    //velocity.add(force);
+    acceleration = force;
+    acceleration.mult(0);
+  }
   public void update() {
     velocity.add(acceleration);
     location.add(velocity);
@@ -150,21 +150,36 @@ class Circle {
 
     pushMatrix();
     strokeWeight(5);
-    stroke(126,LR,UD);
+    fill(120,0,0);
+    stroke(255,0,0);
     ellipse(location.x,location.y,100,100);
     popMatrix();
 
 
   }
 
-  public boolean isDead(){
-    if (location.x > width || location.x < 0 || location.y > height || location.y < 0){
-      return true;
-    }else{
-      return false;
+  public void checkEdges() {
+    if (location.x  > width) {
+      location.x = width ;
+      velocity.x *= -1;
+      } else if (location.x  < 0) {
+        velocity.x *= -1;
+        location.x = 0;
+      }
+
+      if (location.y  > height) {
+        // Even though we said we shouldn't touch location and velocity directly, there are some exceptions.
+        // Here we are doing so as a quick and easy way to reverse the direction of our object when it reaches the edge.
+        velocity.y *= -1;
+        location.y = height;
+      }
+      else if (location.y  < 0){
+        velocity.y *= -1;
+        location.y = 0;
+      }
     }
+
   }
-}
 float panAmount = 0;
 float tiltAmount = 0;
 float alpha = 4;
@@ -178,12 +193,10 @@ class PanTiltMover{
       cameraPan();
     }
 
-   else if (clapCounter >=4){
+    else if (clapCounter >=4){
       cameraTilt();
     }
   }
-
-
 
 
   public void cameraPan(){
@@ -271,30 +284,25 @@ public void circleSystem(){
 
 
   //particles.add(new Particle(new PVector(width/2, height/2)));
-    circles.add(new Circle(new PVector(random(width/3, width), random(height/3,height))));
-  for (int i = 0; i < circles.size(); i++) {
-    xoff += 0;
-    yoff += 0;
+
+  for (int i = 0; i < 8; i++) {
+    circles.add(new Circle(new PVector(random(width*0.25f, width*0.75f), random(height*0.25f,height*0.75f))));
     Circle c = circles.get(i);
     c.run();
-    if (c.isDead()) {
-      circles.remove(i);
-    }
-    if (Pulse > 0.02f) {
+    /*if (c.isDead()) {
+     circles.remove(i);
+    }*/
+
+  if (keyPressed) {
       //PVector wind = new PVector(random(-0.1,0.1),random(-0.1,0.1));
-      PVector wind = new PVector(0,0.2f);
+      PVector wind = new PVector(random(-0.5f,0.5f),random(-0.5f,0.5f));
       //  PVector wind = new PVector(random(-1,1),random(1,-1));
-      wind.rotate(cntr);
+
       c.applyForce(wind);
-      particleColour = 255;
-      particleBG = 0;
-    }
-    else if (Pulse < 0.02f) {
-      particleColour = 150;
-      particleBG = 0;
-    }
+
   }
 
+}
 }
 public void count(){
 
@@ -615,6 +623,7 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
 
         stroke(LR,UD,160);
         pushMatrix();
+
         translate(width/2, height/2);
         line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
         popMatrix();
@@ -622,6 +631,7 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
 
       case 1: //Whitney 2
         pushMatrix();
+        circleSystem();
         translate(width/2, height/2);
         stroke(168,UD,LR);
         line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
