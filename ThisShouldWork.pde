@@ -3,6 +3,7 @@ import netP5.*;
 import controlP5.*;
 
 ArrayList<Particle> particles;
+ArrayList<Circle> circles;
 ControlP5 cp5;
 OscP5 osc;
 NetAddress remote;
@@ -45,9 +46,9 @@ void setup() {
 
   cp5 = new ControlP5(this);
   cp5.addSlider("sceneChangeFreq")
-     .setPosition(100,800)
+     .setPosition(100,600)
      .setWidth(400)
-     .setRange(0.25,4)
+     .setRange(0.25,1)
      .setValue(0.5)
      .setNumberOfTickMarks(4)
      .setSliderMode(Slider.FLEXIBLE)
@@ -64,8 +65,7 @@ void setup() {
 }
 
 void draw(){
-
-  beginCamera();
+  pushMatrix();
   camera(panAmount, tiltAmount, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0);
   rectRot++;
   keyPressed();
@@ -74,7 +74,7 @@ void draw(){
   whitneyDraw1();
   triangleShape();
   ptm.run();
-  endCamera();
+  popMatrix();
 
 }
 
@@ -83,10 +83,8 @@ void mousePressed() {
   sceneIntervalCounter = int(clapCounter);
   println(clapCounter);
 
-//  println(clapCounter);
-
   if (sceneIntervalCounter > 7){
     clapCounter = 0;
     sceneIntervalCounter = 0;
-  }
+    }
   }

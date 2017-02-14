@@ -11,12 +11,10 @@ class PanTiltMover{
       cameraPan();
     }
 
-   else if (clapCounter >=4){
+    else if (clapCounter >=4){
       cameraTilt();
     }
   }
-
-
 
 
   void cameraPan(){

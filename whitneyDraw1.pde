@@ -1,82 +1,12 @@
 void whitneyDraw1(){ //draws a variety of whitney functions
+
   float spc = 0.001;
   float tc = 0.0005;
-
   float r =200; //radius of rotation
   float a;
   int w = 80;
 
-/*if (key != 'i'){
-    background(#000F0D);
-  }
-
-  for (float c = 1; c < 20; c = c + 1){ //draws lines
-
-    strokeWeight(2);
-    if (key == 'q'){ // Whitney1
-
-      stroke(LR,UD,160);
-      pushMatrix();
-      translate(width/2, height/2);
-      line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
-      popMatrix();
-    }
-    else if (key == 'w'){ //Whitney 2
-      pushMatrix();
-      translate(width/2, height/2);
-      stroke(168,UD,LR);
-      line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
-      popMatrix();
-    }
-
-    else if (key == 'e'){ //Whitney 2 points
-      pushMatrix();
-      translate(width/2, height/2);
-      strokeWeight(5);
-      stroke(168,UD,LR);
-      point(w2x1(t+c*2), w2y1(t+c*2));
-      point((w2x1(t+c*2)) -10, (w2y1(t+c*2))-10);
-      popMatrix();
-
-    }
-
-    else if (key == 'r'){ //Whitney 3
-      pushMatrix();
-      translate(width/2, height/2);
-      strokeWeight(2);
-      stroke(120,UD,LR);
-      line(w3x1((-t*tc)+(c *spc)), w3y1((-t*tc)+(c *spc)), w3x2((-t*tc)+(c *spc)),  w3y2((-t*tc)+(c *spc))) ;
-      //point(w3x1((t+c)*50), w3y1((t+c)* 50)) ;
-      popMatrix();
-    }
-
-    else if (key == 't'){ // Whitney harmonix
-      pushMatrix();
-      translate(width/2, height/2);
-      noFill();
-      strokeWeight(2);
-      stroke(149,-LR,LR);
-      ellipse((200+l)*cos(c*s*l),(200+l)*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
-      popMatrix();
-    }
-
-    else if (key =='y'){
-      particleSystem();
-    }
-
-    else if (key == 'u'){
-    drawCircleBG(0,0,300);
-  }
-
-  else if (key == 'i'){
-    drawCircle(0,0,40);
-  }
-}*/
-
-  /*if (keyCounter != 7){
-      background(#000F0D);
-    }*/
-    if ((clapCounter != 5) && (clapCounter != 7)){
+    if ((sceneIntervalCounter != 5) && (sceneIntervalCounter != 7)){
         background(defBackground);
         background (map(kickCounter,0,7,0,80),40,UD);
       }
@@ -137,12 +67,12 @@ void whitneyDraw1(){ //draws a variety of whitney functions
         break;
 
 
-      case 5:
+      case 5: // particleBloom
         particleSystem();
         break;
 
 
-      case 6:
+      case 6: // spinning fractal
         drawCircleBG(0,0,300);
         break;
 

@@ -1,11 +1,11 @@
-class Particle {
+class Circle {
 
   PVector location;
   PVector velocity;
   PVector acceleration;
   float lifespan;
 
-  Particle(PVector l) {
+  Circle(PVector l) {
     location = l.get();
     acceleration = new PVector(0,0);
      //float theta = map(noise(xoff,yoff),0,1,0,TWO_PI);
@@ -38,7 +38,7 @@ class Particle {
     pushMatrix();
     strokeWeight(5);
     stroke(126,LR,UD);
-    point(location.x,location.y);
+    ellipse(location.x,location.y,100,100);
     popMatrix();
 
 

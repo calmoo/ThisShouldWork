@@ -23,6 +23,7 @@ public class ThisShouldWork extends PApplet {
 
 
 ArrayList<Particle> particles;
+ArrayList<Circle> circles;
 ControlP5 cp5;
 OscP5 osc;
 NetAddress remote;
@@ -65,9 +66,9 @@ public void setup() {
 
   cp5 = new ControlP5(this);
   cp5.addSlider("sceneChangeFreq")
-     .setPosition(100,800)
+     .setPosition(100,600)
      .setWidth(400)
-     .setRange(0.25f,4)
+     .setRange(0.25f,1)
      .setValue(0.5f)
      .setNumberOfTickMarks(4)
      .setSliderMode(Slider.FLEXIBLE)
@@ -84,8 +85,8 @@ public void setup() {
 }
 
 public void draw(){
-
-  beginCamera();
+  pushMatrix();
+  //beginCamera();
   camera(panAmount, tiltAmount, (height/2.0f) / tan(PI*30.0f / 180.0f), width/2.0f, height/2.0f, 0, 0, 1, 0);
   rectRot++;
   keyPressed();
@@ -94,7 +95,7 @@ public void draw(){
   whitneyDraw1();
   triangleShape();
   ptm.run();
-  endCamera();
+  popMatrix();
 
 }
 
@@ -110,6 +111,60 @@ public void mousePressed() {
     sceneIntervalCounter = 0;
   }
   }
+class Circle {
+
+  PVector location;
+  PVector velocity;
+  PVector acceleration;
+  float lifespan;
+
+  Circle(PVector l) {
+    location = l.get();
+    acceleration = new PVector(0,0);
+     //float theta = map(noise(xoff,yoff),0,1,0,TWO_PI);
+
+    velocity = new PVector(random(-0.5f,0.5f),random(-0.5f,0.5f));
+    //velocity = new PVector(cos(theta),sin(theta));
+    lifespan = 255.0f;
+  }
+
+  public void run(){
+    pushMatrix();
+    update();
+    display();
+    popMatrix();
+  }
+
+   public void applyForce(PVector force) {
+    velocity.div(2);
+    acceleration.add(velocity);
+ }
+  public void update() {
+    velocity.add(acceleration);
+    location.add(velocity);
+    acceleration.mult(0);
+    lifespan -= 0.0f;
+  }
+
+  public void display() {
+
+    pushMatrix();
+    strokeWeight(5);
+    stroke(126,LR,UD);
+    ellipse(location.x,location.y,100,100);
+    popMatrix();
+
+
+  }
+
+  public boolean isDead(){
+    if (location.x > width || location.x < 0 || location.y > height || location.y < 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+}
 float panAmount = 0;
 float tiltAmount = 0;
 float alpha = 4;
@@ -188,6 +243,7 @@ class Particle {
   }
 
   public void display() {
+
     pushMatrix();
     strokeWeight(5);
     stroke(126,LR,UD);
@@ -210,6 +266,35 @@ public void cameraCounter(){
     cameraCount = i;
   }
 //  cameraCount = width/2;
+}
+public void circleSystem(){
+
+
+  //particles.add(new Particle(new PVector(width/2, height/2)));
+    circles.add(new Circle(new PVector(random(width/3, width), random(height/3,height))));
+  for (int i = 0; i < circles.size(); i++) {
+    xoff += 0;
+    yoff += 0;
+    Circle c = circles.get(i);
+    c.run();
+    if (c.isDead()) {
+      circles.remove(i);
+    }
+    if (Pulse > 0.02f) {
+      //PVector wind = new PVector(random(-0.1,0.1),random(-0.1,0.1));
+      PVector wind = new PVector(0,0.2f);
+      //  PVector wind = new PVector(random(-1,1),random(1,-1));
+      wind.rotate(cntr);
+      c.applyForce(wind);
+      particleColour = 255;
+      particleBG = 0;
+    }
+    else if (Pulse < 0.02f) {
+      particleColour = 150;
+      particleBG = 0;
+    }
+  }
+
 }
 public void count(){
 
@@ -357,7 +442,7 @@ public void particleSystem(){
 
 
   particles.add(new Particle(new PVector(width/2, height/2)));
-
+    //particles.add(new Particle(new PVector(random(width/3, width), random(height/3,height))));
   for (int i = 0; i < particles.size(); i++) {
     xoff += 0;
     yoff += 0;
@@ -366,7 +451,7 @@ public void particleSystem(){
     if (p.isDead()) {
       particles.remove(i);
     }
-    if (Pulse > 0.02f) {
+    if (Pulse > 0) {
       //PVector wind = new PVector(random(-0.1,0.1),random(-0.1,0.1));
       PVector wind = new PVector(0,0.2f);
       //  PVector wind = new PVector(random(-1,1),random(1,-1));
@@ -509,84 +594,14 @@ public float w3y2(float t) {
 return sin(c*t) * 20  - pow((sin(d * t)) , 3) * 400 ;
 }
 public void whitneyDraw1(){ //draws a variety of whitney functions
+
   float spc = 0.001f;
   float tc = 0.0005f;
-
   float r =200; //radius of rotation
   float a;
   int w = 80;
 
-/*if (key != 'i'){
-    background(#000F0D);
-  }
-
-  for (float c = 1; c < 20; c = c + 1){ //draws lines
-
-    strokeWeight(2);
-    if (key == 'q'){ // Whitney1
-
-      stroke(LR,UD,160);
-      pushMatrix();
-      translate(width/2, height/2);
-      line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
-      popMatrix();
-    }
-    else if (key == 'w'){ //Whitney 2
-      pushMatrix();
-      translate(width/2, height/2);
-      stroke(168,UD,LR);
-      line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
-      popMatrix();
-    }
-
-    else if (key == 'e'){ //Whitney 2 points
-      pushMatrix();
-      translate(width/2, height/2);
-      strokeWeight(5);
-      stroke(168,UD,LR);
-      point(w2x1(t+c*2), w2y1(t+c*2));
-      point((w2x1(t+c*2)) -10, (w2y1(t+c*2))-10);
-      popMatrix();
-
-    }
-
-    else if (key == 'r'){ //Whitney 3
-      pushMatrix();
-      translate(width/2, height/2);
-      strokeWeight(2);
-      stroke(120,UD,LR);
-      line(w3x1((-t*tc)+(c *spc)), w3y1((-t*tc)+(c *spc)), w3x2((-t*tc)+(c *spc)),  w3y2((-t*tc)+(c *spc))) ;
-      //point(w3x1((t+c)*50), w3y1((t+c)* 50)) ;
-      popMatrix();
-    }
-
-    else if (key == 't'){ // Whitney harmonix
-      pushMatrix();
-      translate(width/2, height/2);
-      noFill();
-      strokeWeight(2);
-      stroke(149,-LR,LR);
-      ellipse((200+l)*cos(c*s*l),(200+l)*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
-      popMatrix();
-    }
-
-    else if (key =='y'){
-      particleSystem();
-    }
-
-    else if (key == 'u'){
-    drawCircleBG(0,0,300);
-  }
-
-  else if (key == 'i'){
-    drawCircle(0,0,40);
-  }
-}*/
-
-  /*if (keyCounter != 7){
-      background(#000F0D);
-    }*/
-    if ((clapCounter != 5) && (clapCounter != 7)){
+    if ((sceneIntervalCounter != 5) && (sceneIntervalCounter != 7)){
         background(defBackground);
         background (map(kickCounter,0,7,0,80),40,UD);
       }
@@ -647,12 +662,12 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
         break;
 
 
-      case 5:
+      case 5: // particleBloom
         particleSystem();
         break;
 
 
-      case 6:
+      case 6: // spinning fractal
         drawCircleBG(0,0,300);
         break;
 
