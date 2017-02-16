@@ -1,12 +1,22 @@
+
+float charlie = 1;
 void incrementUD(){
-  while (UD < 360){
-    UD = UD + 1;
-  //  UD = UD + myVert;
-    //UD = UD + (myKick + 20);
-    if (UD  > 80){
-      UD = 1;
-    }
-   // println(UD);
-   return;
- }
+
+  if (UD <= 1){
+    UD = 1;
+     charlie = 1;
+  }
+  if (UD >= 170){
+    UD = 170;
+    charlie = -1;
+  }
+  //float conColour = constrain(colourNudge,0,170 - colourNudge);
+  if (charlie == 1){
+  UD += charlie  + colourNudge;
+}
+  if (charlie == -1){
+    UD += charlie  - colourNudge;
+
+
+}
 }

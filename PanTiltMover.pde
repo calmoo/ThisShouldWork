@@ -7,13 +7,19 @@ float beta = 4;
 class PanTiltMover{
 
   void run(){
-    if (clapCounter <= 3){
+    if (sceneIntervalCounter <= 3){
       cameraPan();
     }
 
-    else if (clapCounter >=4){
+    else if (sceneIntervalCounter >=4){
       cameraTilt();
+      if (sceneIntervalCounter == 5){
+        panAmount = width/2;
+        tiltAmount = height/2;
+      }
     }
+
+
   }
 
 

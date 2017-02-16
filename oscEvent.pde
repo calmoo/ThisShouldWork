@@ -2,8 +2,7 @@
 
 void oscEvent(OscMessage inp) {
   if (inp.checkAddrPattern("/myKick")==true){ //Kick Data
-  float Kick = inp.get(0).floatValue();
-  Pulse = Kick;
+  float Pulse = inp.get(0).floatValue();
   if (Pulse > 0){
   kickCounter++;
   if (kickCounter > 7){
@@ -22,9 +21,12 @@ else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data
 }
 
 else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
-  float oscClap = inp.get(0).floatValue();
-  float Clap = oscClap;
+  float Clap = inp.get(0).floatValue();
+  println(Clap);
+  colourNudge = Clap * 30;
+  println(colourNudge);
   if (Clap > 0){
+   // colourNudge = 50;
     clapCounter += sceneChangeFreq;
     sceneIntervalCounter = int(clapCounter);
   //  println(clapCounter);
@@ -33,7 +35,7 @@ else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
 
     if (sceneIntervalCounter > 7){
       clapCounter = 0;
-      sceneIntervalCounter = 7;
+      sceneIntervalCounter = 0;
     }
   }
   return;

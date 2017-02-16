@@ -11,7 +11,7 @@ void circleSystem(){
      circles.remove(i);
     }*/
 
-  if (keyPressed) {
+  if (keyPressed == true) {
       //PVector wind = new PVector(random(-0.1,0.1),random(-0.1,0.1));
       PVector wind = new PVector(random(-0.5,0.5),random(-0.5,0.5));
       //  PVector wind = new PVector(random(-1,1),random(1,-1));

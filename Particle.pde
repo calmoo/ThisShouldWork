@@ -36,7 +36,8 @@ class Particle {
   void display() {
 
     pushMatrix();
-    strokeWeight(5);
+    strokeWeight(7);
+    //stroke(0);
     stroke(126,LR,UD);
     point(location.x,location.y);
     popMatrix();

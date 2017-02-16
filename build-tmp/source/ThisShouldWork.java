@@ -20,50 +20,6 @@ public class ThisShouldWork extends PApplet {
 
 
 
-
-
-ArrayList<Particle> particles;
-ArrayList<Circle> circles;
-
-ControlP5 cp5;
-OscP5 osc;
-NetAddress remote;
-Slider abc;
-RadioButton r;
-
-float test;
-float myKick;
-float myDelay;
-float myVert=0;
-
-int particleColour = 0;
-int particleBG = 0;
-float UD = 1;
-float LR = 1;
-float Pulse = 0;
-float t = 0;
-float l = 1;
-float Colours;
-float Clap;
-static final int NUM_LINES = 20;
-static final int NUM_LINES2 = 20;
-int a = 1;
-int b = 100;
-int c = 1;
-int d = 50;
-float s = 2 * 3.1416f / (3*60);
-float xoff = 0;
-float yoff = 0;
-int kickCounter = 0;
-float clapCounter = 0;
-float panX = width/2;
-float cameraCount = width/2;
-int defBackground = color (0,15,13);
-float sceneChangeFreq = 1;
-int sceneIntervalCounter = 0;
-
-PanTiltMover ptm = new PanTiltMover();
-
 public void setup() {
 
   cp5 = new ControlP5(this);
@@ -76,20 +32,7 @@ public void setup() {
      .setSliderMode(Slider.FLEXIBLE)
      ;
 
-/*  cp5.addRadioButton("sceneChangeFreq")
-        .setPosition(20,160)
-        .setSize(40,20)
-        .setColorForeground(color(120))
-        .setColorActive(color(255))
-        .setColorLabel(color(255))
-        .setItemsPerRow(5)
-        .setSpacingColumn(50)
-        .addItem("0.125",1)
-        .addItem("0.25",2)
-        .addItem("0.5",3)
-        .addItem("1",4)
-        .addItem("2",5)
-        ;*/
+
 
   particles = new ArrayList<Particle>();
   circles = new ArrayList<Circle>();
@@ -103,7 +46,7 @@ public void setup() {
 }
 
 public void draw(){
-  println(sceneChangeFreq);
+  //println(sceneChangeFreq);
 //  blendMode(ADD);
   pushMatrix();
   //blendMode(DIFFERENCE);
@@ -302,6 +245,52 @@ class Particle {
     }
   }
 }
+
+
+
+
+ArrayList<Particle> particles;
+ArrayList<Circle> circles;
+
+ControlP5 cp5;
+OscP5 osc;
+NetAddress remote;
+Slider abc;
+RadioButton r;
+
+float test;
+float myKick;
+float myDelay;
+float myVert=0;
+
+float colourNudge = 0;
+int particleColour = 0;
+int particleBG = 0;
+float UD = 1;
+float LR = 1;
+float Pulse = 0;
+float t = 0;
+float l = 1;
+float Colours;
+float Clap;
+static final int NUM_LINES = 20;
+static final int NUM_LINES2 = 20;
+int a = 1;
+int b = 100;
+int c = 1;
+int d = 50;
+float s = 2 * 3.1416f / (3*60);
+float xoff = 0;
+float yoff = 0;
+int kickCounter = 0;
+float clapCounter = 0;
+float panX = width/2;
+float cameraCount = width/2;
+int defBackground = color (0,15,13);
+float sceneChangeFreq = 1;
+int sceneIntervalCounter = 0;
+
+PanTiltMover ptm = new PanTiltMover();
 public void cameraCounter(){
   for (int i = 0; i < 1000; i+= 0.1f){
     cameraCount = i;
@@ -419,38 +408,33 @@ public void incrementLR(){
   }
   LR += gamma;
 }
-/*void incrementUD(){
-  while (UD < 360){
-    UD = UD + 1;
-  //  UD = UD + myVert;
-    //UD = UD + (myKick + 20);
-    if (UD  > 80){
-      UD = 1;
-    }
-   // println(UD);
-   return;
- }
-}*/
-
-
 
 float charlie = 1;
 public void incrementUD(){
 
-  if (UD <= 1 || Clap > 0){
+  if (UD <= 1){
+    UD = 1;
      charlie = 1;
   }
-  if (UD >= 170 || Clap > 0){
+  if (UD >= 170){
+    UD = 170;
     charlie = -1;
   }
-  UD += charlie;
+  //float conColour = constrain(colourNudge,0,170 - colourNudge);
+  if (charlie == 1){
+  UD += charlie  + colourNudge;
+}
+  if (charlie == -1){
+    UD += charlie  - colourNudge;
+
+
+}
 }
 //Reads all incoming OSC data from Ableton and parses into global variables.
 
 public void oscEvent(OscMessage inp) {
   if (inp.checkAddrPattern("/myKick")==true){ //Kick Data
-  float Kick = inp.get(0).floatValue();
-  Pulse = Kick;
+  float Pulse = inp.get(0).floatValue();
   if (Pulse > 0){
   kickCounter++;
   if (kickCounter > 7){
@@ -469,9 +453,12 @@ else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data
 }
 
 else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
-  float oscClap = inp.get(0).floatValue();
-  float Clap = oscClap;
+  float Clap = inp.get(0).floatValue();
+  println(Clap);
+  colourNudge = Clap * 30;
+  println(colourNudge);
   if (Clap > 0){
+   // colourNudge = 50;
     clapCounter += sceneChangeFreq;
     sceneIntervalCounter = PApplet.parseInt(clapCounter);
   //  println(clapCounter);

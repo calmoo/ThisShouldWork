@@ -20,7 +20,7 @@ void whitneyDraw1(){ //draws a variety of whitney functions
 
         stroke(LR,UD,160);
         pushMatrix();
-
+      //  blendMode(ADD);
         translate(width/2, height/2);
         line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
         popMatrix();
@@ -28,7 +28,8 @@ void whitneyDraw1(){ //draws a variety of whitney functions
 
       case 1: //Whitney 2
         pushMatrix();
-        circleSystem();
+      //  blendMode(SUBTRACT);
+      //  circleSystem();
         translate(width/2, height/2);
         stroke(168,UD,LR);
         line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
@@ -37,6 +38,7 @@ void whitneyDraw1(){ //draws a variety of whitney functions
 
       case 2: //Whitney 2 points
         pushMatrix();
+        //blendMode(DIFFERENCE);
         translate(width/2, height/2);
         strokeWeight(5);
         stroke(168,UD,LR);
@@ -60,11 +62,13 @@ void whitneyDraw1(){ //draws a variety of whitney functions
 
       case 4: // Whitney harmonix
         pushMatrix();
+      //  blendMode(MULTIPLY);
         translate(width/2, height/2);
         noFill();
         strokeWeight(2);
         stroke(149,-LR,LR);
         ellipse((200+l)*cos(c*s*l),(200+l)*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
+        line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
         popMatrix();
         break;
 
