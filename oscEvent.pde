@@ -13,10 +13,10 @@ void oscEvent(OscMessage inp) {
   return;
 }
 
-else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data
-  float Delay = inp.get(0).floatValue();
-  myVert =  map(Delay,0, 0.152,1,40);
-  myDelay = map(Delay,0, 0.152,0,255);
+else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data\
+  int Delay = inp.get(0).intValue();
+
+  
   return;
 }
 

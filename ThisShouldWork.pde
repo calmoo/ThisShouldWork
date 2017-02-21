@@ -16,13 +16,12 @@ void setup() {
   osc = new OscP5(this,8000);
   osc.properties().setRemoteAddress("127.0.0.1" , 8000 );
   remote = new NetAddress( "127.0.0.1" , 8000 );
-  cf = new ControlFrame(this, 400, 800, "Controls");
+  cf = new ControlFrame(this, 600, 200, "Controls");
 
 }
 
 void draw(){
-  
-  println(sceneChangeFreq);
+
 //  blendMode(ADD);
   pushMatrix();
   //blendMode(DIFFERENCE);

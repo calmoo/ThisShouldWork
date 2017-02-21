@@ -13,14 +13,16 @@ class ControlFrame extends PApplet {
     PApplet.runSketch(new String[]{this.getClass().getName()}, this);
   }
   public void settings() {
+
     size(w, h, P2D);
   }
 
   public void setup() {
+    background(0);
     this.surface.setSize(w, h);
     cp5 = new ControlP5(this);
     cp5.addSlider("sceneChangeFreq")
-         .setPosition(100,600)
+         .setPosition(100,50)
          .setWidth(400)
          .setRange(0.125,1)
          .setValue(0.125)

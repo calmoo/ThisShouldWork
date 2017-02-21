@@ -36,13 +36,12 @@ public void setup() {
   osc = new OscP5(this,8000);
   osc.properties().setRemoteAddress("127.0.0.1" , 8000 );
   remote = new NetAddress( "127.0.0.1" , 8000 );
-  cf = new ControlFrame(this, 400, 800, "Controls");
+  cf = new ControlFrame(this, 600, 200, "Controls");
 
 }
 
 public void draw(){
-  
-  println(sceneChangeFreq);
+
 //  blendMode(ADD);
   pushMatrix();
   //blendMode(DIFFERENCE);
@@ -155,14 +154,16 @@ class ControlFrame extends PApplet {
     PApplet.runSketch(new String[]{this.getClass().getName()}, this);
   }
   public void settings() {
+
     size(w, h, P2D);
   }
 
   public void setup() {
+    background(0);
     this.surface.setSize(w, h);
     cp5 = new ControlP5(this);
     cp5.addSlider("sceneChangeFreq")
-         .setPosition(100,600)
+         .setPosition(100,50)
          .setWidth(400)
          .setRange(0.125f,1)
          .setValue(0.125f)
@@ -476,8 +477,9 @@ public void oscEvent(OscMessage inp) {
   return;
 }
 
-else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data
-  float Delay = inp.get(0).floatValue();
+else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data\
+   int Delay = inp.get(0).intValue();
+  println(Delay);
   myVert =  map(Delay,0, 0.152f,1,40);
   myDelay = map(Delay,0, 0.152f,0,255);
   return;
@@ -601,7 +603,6 @@ public float w1y1(float t) {
 }
 public float w1x2(float t){
 	float size = map(freqCutoff,0.36f,1,200,400);
-	println(size);
    return sin(t/10)*size + sin(t)*2;
 
 }
