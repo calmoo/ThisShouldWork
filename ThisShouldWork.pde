@@ -2,7 +2,7 @@ ControlFrame cf;
 
 
 void settings(){
-  size(1400,800, P3D);
+  size(1400,800, OPENGL);
 }
 void setup() {
   
@@ -34,8 +34,9 @@ void draw(){
   whitneyDraw1();
 //  triangleShape();
   ptm.run();
-  popMatrix();
 
+  popMatrix();
+  randomCircles();
 }
 
 void mousePressed() {

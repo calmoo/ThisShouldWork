@@ -15,6 +15,9 @@ void oscEvent(OscMessage inp) {
 
 else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data\
   int Delay = inp.get(0).intValue();
+  delayTrigger = Delay;
+
+ 
 
   
   return;

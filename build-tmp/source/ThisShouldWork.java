@@ -22,7 +22,7 @@ ControlFrame cf;
 
 
 public void settings(){
-  size(1400,800, P3D);
+  size(1400,800, OPENGL);
 }
 public void setup() {
   
@@ -54,8 +54,9 @@ public void draw(){
   whitneyDraw1();
 //  triangleShape();
   ptm.run();
-  popMatrix();
 
+  popMatrix();
+  randomCircles();
 }
 
 public void mousePressed() {
@@ -289,11 +290,13 @@ NetAddress remote;
 Slider abc;
 RadioButton r;
 
+int delayTrigger = 0;
+
 float test;
 float myKick;
 float myDelay;
 float myVert=0;
-
+int Delay = 0;
 float freqCutoff = 0.37f;
 float colourNudge = 0;
 int particleColour = 0;
@@ -478,10 +481,12 @@ public void oscEvent(OscMessage inp) {
 }
 
 else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data\
-   int Delay = inp.get(0).intValue();
-  println(Delay);
-  myVert =  map(Delay,0, 0.152f,1,40);
-  myDelay = map(Delay,0, 0.152f,0,255);
+  int Delay = inp.get(0).intValue();
+  delayTrigger = Delay;
+
+ 
+
+  
   return;
 }
 
@@ -552,6 +557,16 @@ public void particleSystem(){
   }
   cntr += delta ;
 }*/
+public void randomCircles(){
+if (delayTrigger == 1){
+	for(int i = 0; i < 100; i++){
+	stroke(LR,UD,204);
+	strokeWeight(10);
+	point(random(0,width),random(0,height));
+}
+}
+
+}
 public void spherePulse(){
   if (myKick > 0.01f){ //&& //millis() - time >= wait){
     for (int i = 0; i < 60; i++){
