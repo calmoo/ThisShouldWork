@@ -1,32 +1,28 @@
+ControlFrame cf;
 
 
+void settings(){
+  size(1400,800, P3D);
+}
 void setup() {
-
-  cp5 = new ControlP5(this);
-  cp5.addSlider("sceneChangeFreq")
-     .setPosition(100,600)
-     .setWidth(400)
-     .setRange(0.125,1)
-     .setValue(0.5)
-     .setNumberOfTickMarks(5)
-     .setSliderMode(Slider.FLEXIBLE)
-     ;
-
-
+  
 
   particles = new ArrayList<Particle>();
   circles = new ArrayList<Circle>();
-  size(1400,800, P3D);
+  
 
   smooth(4);
   frameRate(60);
   osc = new OscP5(this,8000);
   osc.properties().setRemoteAddress("127.0.0.1" , 8000 );
   remote = new NetAddress( "127.0.0.1" , 8000 );
+  cf = new ControlFrame(this, 400, 800, "Controls");
+
 }
 
 void draw(){
-  //println(sceneChangeFreq);
+  
+  println(sceneChangeFreq);
 //  blendMode(ADD);
   pushMatrix();
   //blendMode(DIFFERENCE);

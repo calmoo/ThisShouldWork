@@ -9,12 +9,14 @@ float w1y1(float t) {
 
 }
 float w1x2(float t){
-   return sin(t/10)*200 + sin(t)*2;
+	float size = map(freqCutoff,0.36,1,200,400);
+	println(size);
+   return sin(t/10)*size + sin(t)*2;
 
 }
 
 float w1y2(float t) {
-
-  return cos(t/20)*200 + cos(t/12)*20;
+	float size = map(freqCutoff,0.36,1,200,400);
+  return cos(t/20)*size + cos(t/12)*20;
 
 }

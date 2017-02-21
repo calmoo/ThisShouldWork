@@ -18,21 +18,14 @@ import java.io.IOException;
 
 public class ThisShouldWork extends PApplet {
 
+ControlFrame cf;
 
 
+public void settings(){
+  size(1400,800, P3D);
+}
 public void setup() {
-
-  cp5 = new ControlP5(this);
-  cp5.addSlider("sceneChangeFreq")
-     .setPosition(100,600)
-     .setWidth(400)
-     .setRange(0.125f,1)
-     .setValue(0.5f)
-     .setNumberOfTickMarks(5)
-     .setSliderMode(Slider.FLEXIBLE)
-     ;
-
-
+  
 
   particles = new ArrayList<Particle>();
   circles = new ArrayList<Circle>();
@@ -43,10 +36,13 @@ public void setup() {
   osc = new OscP5(this,8000);
   osc.properties().setRemoteAddress("127.0.0.1" , 8000 );
   remote = new NetAddress( "127.0.0.1" , 8000 );
+  cf = new ControlFrame(this, 400, 800, "Controls");
+
 }
 
 public void draw(){
-  //println(sceneChangeFreq);
+  
+  println(sceneChangeFreq);
 //  blendMode(ADD);
   pushMatrix();
   //blendMode(DIFFERENCE);
@@ -144,6 +140,40 @@ class Circle {
     }
 
   }
+class ControlFrame extends PApplet {
+
+  int w, h;
+  PApplet parent;
+  ControlP5 cp5;
+  float sceneChangeFreq;
+
+  public ControlFrame(PApplet _parent, int _w, int _h, String _name) {
+    super();   
+    parent = _parent;
+    w=_w;
+    h=_h;
+    PApplet.runSketch(new String[]{this.getClass().getName()}, this);
+  }
+  public void settings() {
+    size(w, h, P2D);
+  }
+
+  public void setup() {
+    this.surface.setSize(w, h);
+    cp5 = new ControlP5(this);
+    cp5.addSlider("sceneChangeFreq")
+         .setPosition(100,600)
+         .setWidth(400)
+         .setRange(0.125f,1)
+         .setValue(0.125f)
+         .setNumberOfTickMarks(5)
+         .setSliderMode(Slider.FLEXIBLE)
+         .plugTo(parent,"sceneChangeFreq");
+         ;
+      }
+
+
+}
 float panAmount = 0;
 float tiltAmount = 0;
 float alpha = 4;
@@ -177,7 +207,7 @@ class PanTiltMover{
       alpha = -4;
     }
     panAmount += alpha;
-    //println(panAmount);
+    
   }
 
   public void cameraTilt(){
@@ -200,10 +230,10 @@ class Particle {
   Particle(PVector l) {
     location = l.get();
     acceleration = new PVector(0,0);
-     //float theta = map(noise(xoff,yoff),0,1,0,TWO_PI);
+     
 
     velocity = new PVector(random(-0.5f,0.5f),random(-0.5f,0.5f));
-    //velocity = new PVector(cos(theta),sin(theta));
+    
     lifespan = 255.0f;
   }
 
@@ -263,6 +293,7 @@ float myKick;
 float myDelay;
 float myVert=0;
 
+float freqCutoff = 0.37f;
 float colourNudge = 0;
 int particleColour = 0;
 int particleBG = 0;
@@ -454,16 +485,13 @@ else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data
 
 else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
   float Clap = inp.get(0).floatValue();
-  println(Clap);
+  //println(Clap);
   colourNudge = Clap * 30;
-  println(colourNudge);
+  //println(colourNudge);
   if (Clap > 0){
    // colourNudge = 50;
     clapCounter += sceneChangeFreq;
     sceneIntervalCounter = PApplet.parseInt(clapCounter);
-  //  println(clapCounter);
-
-  //  println(clapCounter);
 
     if (sceneIntervalCounter > 7){
       clapCounter = 0;
@@ -472,6 +500,12 @@ else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
   }
   return;
 
+}
+
+else if (inp.checkAddrPattern("/Cutoff")==true){
+  float Cutoff = inp.get(0).floatValue();
+  freqCutoff = Cutoff;
+  //println(Cutoff);
 }
 
 }
@@ -566,13 +600,15 @@ public float w1y1(float t) {
 
 }
 public float w1x2(float t){
-   return sin(t/10)*200 + sin(t)*2;
+	float size = map(freqCutoff,0.36f,1,200,400);
+	println(size);
+   return sin(t/10)*size + sin(t)*2;
 
 }
 
 public float w1y2(float t) {
-
-  return cos(t/20)*200 + cos(t/12)*20;
+	float size = map(freqCutoff,0.36f,1,200,400);
+  return cos(t/20)*size + cos(t/12)*20;
 
 }
 public float w2x1(float t){
@@ -588,16 +624,16 @@ public float w2y1(float t) {
 
 }
 public float w2x2(float t){
-
-   return sin(t/10)*200 + sin(t)*4;
+	float size = map(freqCutoff,0.36f,1,200,400);
+   return sin(t/10)*size + sin(t)*4;
 
 
 }
 
 public float w2y2(float t) {
 
-
-return cos(t/20) * 200 + cos(t/30)*20;
+float size = map(freqCutoff,0.36f,1,200,400);
+return cos(t/20) * size + cos(t/30)*20;
 }
 
 
@@ -617,18 +653,18 @@ public float w3y1(float t) {
 
 }
 public float w3x2(float t){
-
+	float size = map(panAmount,0,width,200,400);
    //return  cos(1 * t)*200 - pow((cos(80 * t)), 3);
-   return  cos(a * t) * 20 - pow((cos(b * t)), 3) * 400 ;
+   return  cos(a * t) * 20 - pow((cos(b * t)), 3) * size ;
 
 
 }
 
 public float w3y2(float t) {
 
+float size = map(panAmount,0,width,200,400);
 
-//return sin(1*t)*200 - pow((sin(80 * t)), 3);
-return sin(c*t) * 20  - pow((sin(d * t)) , 3) * 400 ;
+return sin(c*t) * 20  - pow((sin(d * t)) , 3) * size ;
 }
 public void whitneyDraw1(){ //draws a variety of whitney functions
 
@@ -654,7 +690,7 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
         pushMatrix();
       //  blendMode(ADD);
         translate(width/2, height/2);
-        line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
+        line(w1x1(-t + c*2), w1y1(-t +c*2) , w1x2(-t + c*2),  w1y2(-t + c*2)) ;
         popMatrix();
         break;
 
@@ -730,7 +766,6 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
     t = t + 0.5f;
   }
 }
-  public void settings() {  size(1400,800, P3D);  smooth(4); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "ThisShouldWork" };
     if (passedArgs != null) {

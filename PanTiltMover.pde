@@ -31,7 +31,7 @@ class PanTiltMover{
       alpha = -4;
     }
     panAmount += alpha;
-    //println(panAmount);
+    
   }
 
   void cameraTilt(){

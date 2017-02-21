@@ -16,6 +16,7 @@ float myKick;
 float myDelay;
 float myVert=0;
 
+float freqCutoff = 0.37;
 float colourNudge = 0;
 int particleColour = 0;
 int particleBG = 0;

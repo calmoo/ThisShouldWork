@@ -22,7 +22,7 @@ void whitneyDraw1(){ //draws a variety of whitney functions
         pushMatrix();
       //  blendMode(ADD);
         translate(width/2, height/2);
-        line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
+        line(w1x1(-t + c*2), w1y1(-t +c*2) , w1x2(-t + c*2),  w1y2(-t + c*2)) ;
         popMatrix();
         break;
 

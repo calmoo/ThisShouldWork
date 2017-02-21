@@ -1,0 +1,304 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Particle.pde",
+			"settings":
+			{
+				"buffer_size": 1019,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					""
+				],
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					"Re-run sketch"
+				],
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					"Run sketch (Processing 3 only)"
+				],
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					"Run sketch fullscreen"
+				],
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					"Export sketch as application"
+				],
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					"Kill running sketches"
+				]
+			],
+			[
+				"Packages/Processing/Build Systems/Processing.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 357.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"boxy",
+				"Boxy Theme: Activation"
+			],
+			[
+				"c++",
+				"Set Syntax: C++"
+			],
+			[
+				"",
+				"Build With: C++ Single File"
+			]
+		],
+		"width": 728.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/default/GitHub/ThisShouldWork"
+	],
+	"file_history":
+	[
+		"/Users/default/Documents/Processing/ShapeBlend/data/test.svg",
+		"/Applications/Processing.app/Contents/Java/modes/java/examples/Basics/Shape/ShapeVertices/data/uk.svg",
+		"/Applications/Processing.app/Contents/Java/modes/java/examples/Basics/Shape/ShapeVertices/data/Comet.svg",
+		"/Users/default/Documents/Processing/svggg/data/Alien.svg",
+		"/Users/default/Documents/Processing/MainProject/Main/whitneyDraw.pde",
+		"/Users/default/Documents/Processing/MainProject/Main/incrementLR.pde",
+		"/Users/default/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/default/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/default/Documents/Processing/MainProject/Main/colourChange.pde",
+		"/Users/default/Documents/Processing/MainProject/Main/Main.pde",
+		"/Users/default/Documents/kkk.asc",
+		"/Users/default/Documents/Processing/MainProject/Main/Class",
+		"/Users/default/GitHub/Processing-Ableton-Visualizer/OSCBeginningP3D.pde",
+		"/Users/default/Library/Application Support/Sublime Text 3/Packages/sublime-github/GitHub.sublime-settings",
+		"/Users/default/Library/Application Support/Sublime Text 3/Packages/Git/Git.sublime-settings",
+		"/Users/default/Library/Application Support/Sublime Text 3/Packages/User/Git.sublime-settings",
+		"/Users/default/Library/Application Support/Sublime Text 3/Packages/User/SideBarGit.sublime-settings",
+		"/Users/default/Library/Application Support/Sublime Text 3/Packages/SideBarGit/SideBarGit.sublime-settings",
+		"/Users/default/Documents/Processing/MainProject/OSCBeginningP3D/OSCBeginningP3D.pde",
+		"/Users/default/Documents/Processing/MainProject/MinimTut.pde",
+		"/Users/default/Documents/Processing/MainProject/OSCBeginningP3D/Class",
+		"/Users/default/Downloads/triangleDAC/triangleDAC.ino",
+		"/Users/default/Documents/ArduinoPrograms/Morse/Morse.ino",
+		"/Users/default/Downloads/noah.py",
+		"/Users/default/Downloads/SBRscraper_tennis.py",
+		"/Users/default/Documents/ifexample.py",
+		"/Users/default/Desktop/youtube-dl/youtube_dl/options.py",
+		"/Users/default/Downloads/ffmpeg-3.1.2/libavfilter/af_join.c",
+		"/Users/default/Downloads/ffmpeg-3.1.2/INSTALL.md",
+		"/Users/default/Documents/range.py",
+		"/Users/default/Documents/hello.py",
+		"/Users/default/Documents/Video/Colm.prproj"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/default/Documents/Processing/MainProject/Main",
+			"/Users/default/GitHub/Processing-Ableton-Visualizer",
+			"/Users/default/Documents/Processing/MainProject/OSCBeginningP3D"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"calmo"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"ine(x1(-t+i*2), y1(-t+i*2), x2(-t+i),  y2(-t+i));"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Particle.pde",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1019,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Processing/Syntaxes/Processing.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 110.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 241.0
+	},
+	"pinned_build_system": "Packages/Processing/Build Systems/Processing.sublime-build",
+	"project": "ThisShouldWork.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Main.pde"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 250.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

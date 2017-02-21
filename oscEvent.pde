@@ -22,16 +22,13 @@ else if (inp.checkAddrPattern("/Delay")==true){ // HiHat Data
 
 else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
   float Clap = inp.get(0).floatValue();
-  println(Clap);
+  //println(Clap);
   colourNudge = Clap * 30;
-  println(colourNudge);
+  //println(colourNudge);
   if (Clap > 0){
    // colourNudge = 50;
     clapCounter += sceneChangeFreq;
     sceneIntervalCounter = int(clapCounter);
-  //  println(clapCounter);
-
-  //  println(clapCounter);
 
     if (sceneIntervalCounter > 7){
       clapCounter = 0;
@@ -40,6 +37,12 @@ else if (inp.checkAddrPattern("/Clap")==true){ // Clap Data
   }
   return;
 
+}
+
+else if (inp.checkAddrPattern("/Cutoff")==true){
+  float Cutoff = inp.get(0).floatValue();
+  freqCutoff = Cutoff;
+  //println(Cutoff);
 }
 
 }
