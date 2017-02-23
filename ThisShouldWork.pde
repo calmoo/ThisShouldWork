@@ -6,11 +6,7 @@ void settings() {
 }
 void setup() {
 
-
   particles = new ArrayList<Particle>();
-
-
-
   smooth(4);
   frameRate(60);
   osc = new OscP5(this, 8000);
@@ -32,8 +28,14 @@ void draw() {
   whitneyDraw1();
   ptm.run();
   popMatrix();
+  pushMatrix();
   randomCircles();
+  
+  popMatrix();
+
 }
+
+
 
 void mousePressed() {
   clapCounter += sceneChangeFreq;

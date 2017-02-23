@@ -19,7 +19,7 @@ import java.io.IOException;
 public class ThisShouldWork extends PApplet {
 
 ControlFrame cf;
-
+boolean paused = false;
 
 public void settings() {
   size(1400, 800, P3D);
@@ -52,8 +52,26 @@ public void draw() {
   whitneyDraw1();
   ptm.run();
   popMatrix();
+  pushMatrix();
   randomCircles();
+  popMatrix();
+  if (paused == true){
+    println("paused");
+  }
+  else if (paused == false){
+    println("unpaused");
+  }
 }
+
+public void keyPressed() {
+  if ((key == 'x' || key == 'X') && (paused == false)){
+    paused = true;
+  }
+   if ((key == 'x' || key == 'X') && (paused == true)) {
+    paused = false;
+  }
+}
+
 
 public void mousePressed() {
   clapCounter += sceneChangeFreq;
@@ -93,7 +111,7 @@ class ControlFrame extends PApplet {
     cp5.addSlider("sceneChangeFreq")
       .setPosition(100, 50)
       .setWidth(400)
-      .setRange(0.125f, 1)
+      .setRange(0, 1)
       .setValue(0.125f)
       .setNumberOfTickMarks(5)
       .setSliderMode(Slider.FLEXIBLE)
@@ -409,9 +427,11 @@ public void particleSystem() {
 public void randomCircles() {
 
   if (delayTrigger == 1) {
+  	pushMatrix();
     triangleShape();
+    popMatrix();
     for (int i = 0; i < 100; i++) {
-      stroke(LR, UD, 204);
+      stroke(LR, UD, 160,random(150));
       strokeWeight(10);
       point(random(0, width), random(0, height));
     }
@@ -518,22 +538,24 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
         background (map(kickCounter,0,7,0,80),40,UD);
       }
 
-    for (float c = 1; c < 50; c = c + 1){ //draws lines
+     //draws lines
       strokeWeight(2);
 
       switch(sceneIntervalCounter){
 
       case 0: // Whitney1
-
+      for (float c = 1; c < 50; c = c + 1){
         stroke(LR,UD,160);
         pushMatrix();
       //  blendMode(ADD);
         translate(width/2, height/2);
         line(w1x1(-t + c*2), w1y1(-t +c*2) , w1x2(-t + c*2),  w1y2(-t + c*2)) ;
         popMatrix();
+      }
         break;
 
       case 1: //Whitney 2
+      for (float c = 1; c < 50; c = c + 1){
         pushMatrix();
       //  blendMode(SUBTRACT);
       //  circleSystem();
@@ -541,9 +563,12 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
         stroke(168,UD,LR);
         line(w2x1(t+c*2), w2y1(t+c*2) , w2x2(t+c*2),  w2y2(t+c*2)) ;
         popMatrix();
+      }
         break;
+      
 
       case 2: //Whitney 2 points
+      for (float c = 1; c < 50; c = c + 1){
         pushMatrix();
         //blendMode(DIFFERENCE);
         translate(width/2, height/2);
@@ -552,11 +577,13 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
         point(w2x1(t+c*2), w2y1(t+c*2));
         point((w2x1(t+c*2)) -10, (w2y1(t+c*2))-10);
         popMatrix();
+      }
         break;
 
 
 
       case 3: //Whitney 3
+      for (float c = 1; c < 50; c = c + 1){
         pushMatrix();
         translate(width/2, height/2);
         strokeWeight(2);
@@ -564,10 +591,12 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
         line(w3x1((-t*tc)+(c *spc)), w3y1((-t*tc)+(c *spc)), w3x2((-t*tc)+(c *spc)),  w3y2((-t*tc)+(c *spc))) ;
         //point(w3x1((t+c)*50), w3y1((t+c)* 50)) ;
         popMatrix();
+      }
         break;
 
 
       case 4: // Whitney harmonix
+      for (float c = 1; c < 50; c = c + 1){
         pushMatrix();
       //  blendMode(MULTIPLY);
         translate(width/2, height/2);
@@ -577,6 +606,7 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
         ellipse((200+l)*cos(c*s*l),(200+l)*sin(c*s*l), w +5 + (c*4), w + 5  +(c*4) );
         line(w1x1(-t+c*2), w1y1(-t+c*2) , w1x2(-t+c*2),  w1y2(-t+c*2)) ;
         popMatrix();
+      }
         break;
 
 
@@ -586,6 +616,7 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
 
 
       case 6: // spinning fractal
+
         drawCircleBG(0,0,300);
         break;
 
@@ -593,7 +624,7 @@ public void whitneyDraw1(){ //draws a variety of whitney functions
       case 7:
         drawCircle(0,0,40);
         break;
-      }
+      
     }
 
   if(Pulse > 0.02f){

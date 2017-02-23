@@ -27,7 +27,7 @@ class ControlFrame extends PApplet {
     cp5.addSlider("sceneChangeFreq")
       .setPosition(100, 50)
       .setWidth(400)
-      .setRange(0.125, 1)
+      .setRange(0, 1)
       .setValue(0.125)
       .setNumberOfTickMarks(5)
       .setSliderMode(Slider.FLEXIBLE)
