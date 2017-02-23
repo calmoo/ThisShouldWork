@@ -7,25 +7,25 @@ class Particle {
 
   Particle(PVector l) {
     location = l.get();
-    acceleration = new PVector(0,0);
-     
+    acceleration = new PVector(0, 0);
 
-    velocity = new PVector(random(-0.5,0.5),random(-0.5,0.5));
-    
+
+    velocity = new PVector(random(-0.5, 0.5), random(-0.5, 0.5));
+
     lifespan = 255.0;
   }
 
-  void run(){
+  void run() {
     pushMatrix();
     update();
     display();
     popMatrix();
   }
 
-   void applyForce(PVector force) {
+  void applyForce(PVector force) {
     velocity.div(2);
     acceleration.add(velocity);
- }
+  }
   void update() {
     velocity.add(acceleration);
     location.add(velocity);
@@ -38,17 +38,15 @@ class Particle {
     pushMatrix();
     strokeWeight(7);
     //stroke(0);
-    stroke(126,LR,UD);
-    point(location.x,location.y);
+    stroke(126, LR, UD);
+    point(location.x, location.y);
     popMatrix();
-
-
   }
 
-  boolean isDead(){
-    if (location.x > width || location.x < 0 || location.y > height || location.y < 0){
+  boolean isDead() {
+    if (location.x > width || location.x < 0 || location.y > height || location.y < 0) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }

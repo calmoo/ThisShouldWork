@@ -1,3 +1,6 @@
+// allows GUI to be controlled from a seperate window to the visuals.
+// taken from https://github.com/sojamo/controlp5/issues/17
+
 class ControlFrame extends PApplet {
 
   int w, h;
@@ -22,15 +25,13 @@ class ControlFrame extends PApplet {
     this.surface.setSize(w, h);
     cp5 = new ControlP5(this);
     cp5.addSlider("sceneChangeFreq")
-         .setPosition(100,50)
-         .setWidth(400)
-         .setRange(0.125,1)
-         .setValue(0.125)
-         .setNumberOfTickMarks(5)
-         .setSliderMode(Slider.FLEXIBLE)
-         .plugTo(parent,"sceneChangeFreq");
-         ;
-      }
-
-
+      .setPosition(100, 50)
+      .setWidth(400)
+      .setRange(0.125, 1)
+      .setValue(0.125)
+      .setNumberOfTickMarks(5)
+      .setSliderMode(Slider.FLEXIBLE)
+      .plugTo(parent, "sceneChangeFreq");
+    ;
+  }
 }

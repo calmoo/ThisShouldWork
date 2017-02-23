@@ -11,7 +11,7 @@ void whitneyDraw1(){ //draws a variety of whitney functions
         background (map(kickCounter,0,7,0,80),40,UD);
       }
 
-    for (float c = 1; c < 20; c = c + 1){ //draws lines
+    for (float c = 1; c < 50; c = c + 1){ //draws lines
       strokeWeight(2);
 
       switch(sceneIntervalCounter){
