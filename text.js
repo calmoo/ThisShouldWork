@@ -25,7 +25,9 @@ function init() {
   cancelAnimationFrame(animationFrame);
   
   // Set the canvas width and height
-  canvas.width = window.innerWidth * ratio;
+  //canvas.width = window.innerWidth * ratio;
+  canvas.width = window.innerWidth * ratio + 500;
+  
   canvas.height = window.innerHeight * ratio;
  
   // Set the canvas font properties
